@@ -377,26 +377,61 @@ const REAL_PLAYERS=[
 // ── STORAGE (Supabase) ───────────────────────────────────────────────────────
 // Data is fetched from Supabase on load and written back on every dispatch.
 // These helpers are kept for reference but the actual load/save is async below.
+
+async function seedPlayersIfEmpty(){
+  try{
+    const {data, error}=await supabase.from('players').select('id').limit(1);
+    if(error){console.error('Seed check error',error);return;}
+    if(data&&data.length===0){
+      console.log('Seeding initial players...');
+      for(const p of REAL_PLAYERS){
+        await supabase.from('players').insert({id:p.id,name:p.name,handicap_index:p.handicapIndex,score_diffs:[]});
+      }
+      console.log('Players seeded successfully.');
+    }
+  }catch(err){console.error('Seed error',err);}
+}
 async function loadFromSupabase(){
   try{
-    const [players, scores, settings, pending] = await Promise.all([
+    const results = await Promise.all([
       supabase.from('players').select('*').order('name'),
       supabase.from('scores').select('*').order('week_id'),
       supabase.from('settings').select('*'),
       supabase.from('pending_players').select('*').order('created_at'),
     ]);
+    const [playersRes, scoresRes, settingsRes, pendingRes] = results;
+    [playersRes, scoresRes, settingsRes, pendingRes].forEach((r,i)=>{
+      if(r.error) console.error('Supabase query error #'+i, r.error);
+    });
     const settingsMap={};
-    (settings.data||[]).forEach(r=>{settingsMap[r.key]=r.value;});
+    (settingsRes.data||[]).forEach(r=>{try{settingsMap[r.key]=r.value;}catch(e){}});
     return{
-      players:(players.data||[]).map(p=>({id:p.id,name:p.name,handicapIndex:parseFloat(p.handicap_index),scoreDiffs:p.score_diffs||[]})),
-      scores:(scores.data||[]).map(s=>({id:s.id,playerId:s.player_id,courseId:s.course_id,tee:s.tee,nine:s.nine,holes:s.holes,weekId:s.week_id,submittedAt:s.submitted_at})),
+      players:(playersRes.data||[]).map(p=>({
+        id:p.id,name:p.name,
+        handicapIndex:parseFloat(p.handicap_index)||18,
+        scoreDiffs:Array.isArray(p.score_diffs)?p.score_diffs:[]
+      })),
+      scores:(scoresRes.data||[]).map(s=>({
+        id:s.id,playerId:s.player_id,courseId:s.course_id,
+        tee:s.tee,nine:s.nine,
+        holes:Array.isArray(s.holes)?s.holes:JSON.parse(s.holes||'[]'),
+        weekId:s.week_id,submittedAt:s.submitted_at
+      })),
       teeOverrides:settingsMap['teeOverrides']||{},
       courseVisOverrides:settingsMap['courseVisOverrides']||{},
-      playoffWeeks:settingsMap['playoffWeeks']||[],
-      unreqCourses:settingsMap['unreqCourses']||[],
-      pendingPlayers:(pending.data||[]).map(p=>({id:p.id,name:p.name,handicapIndex:parseFloat(p.handicap_index),mode:p.mode,rawAvg:p.raw_avg})),
+      playoffWeeks:Array.isArray(settingsMap['playoffWeeks'])?settingsMap['playoffWeeks']:[],
+      unreqCourses:Array.isArray(settingsMap['unreqCourses'])?settingsMap['unreqCourses']:[],
+      pendingPlayers:(pendingRes.data||[]).map(p=>({
+        id:p.id,name:p.name,
+        handicapIndex:parseFloat(p.handicap_index)||18,
+        mode:p.mode||'avg',rawAvg:p.raw_avg
+      })),
+      _loaded:true,
     };
-  }catch(err){console.error('Supabase load error',err);return null;}
+  }catch(err){
+    console.error('Supabase load error',err);
+    return{players:[],scores:[],teeOverrides:{},courseVisOverrides:{},playoffWeeks:[],unreqCourses:[],pendingPlayers:[],_loaded:true,_error:err.message};
+  }
 }
 
 // ── MATH ──────────────────────────────────────────────────────────────────────
@@ -898,14 +933,18 @@ function App(){
     let players_sub, scores_sub, settings_sub, pending_sub;
 
     async function init(){
-      // Seed players if this is first run
-      await seedPlayersIfEmpty();
-      // Load initial data
-      const data=await loadFromSupabase();
-      if(data){
+      try{
+        // Seed players if this is first run
+        await seedPlayersIfEmpty();
+        // Load initial data
+        const data=await loadFromSupabase();
         setState(prev=>({...prev,...data,loading:false}));
-      } else {
-        setDbError('Could not connect to database. Check your Supabase URL and key.');
+        if(data._error){
+          setDbError('Database error: '+data._error+'. Check browser console for details.');
+        }
+      }catch(err){
+        console.error('Init error',err);
+        setDbError('Could not connect to database: '+err.message+'. Check your Supabase URL and anon key.');
         setState(prev=>({...prev,loading:false}));
       }
     }
