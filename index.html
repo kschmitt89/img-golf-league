@@ -120,12 +120,18 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 <div class="shell" id="root"></div>
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const {useState,useMemo}=React;
+const {useState,useMemo,useEffect,useCallback}=React;
 const h=React.createElement;
 const ADMIN_PASS='GolfLeague2025!';
-const SK='img_golf_v8';
 const MIN_WKS_PO=5;
+
+// ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
+// Replace these two values with your own from supabase.com → Project Settings → API
+const SUPABASE_URL = 'https://img-golf-league.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcHl3aWd1a3R6dGlrc3JzY3lkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzOTUxNzIsImV4cCI6MjA5Mzk3MTE3Mn0.LPNB1i8k-PTZaMbbZ7KrBOoIY9j3qT1zLlBulOHguHA';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── INLINE STYLES ─────────────────────────────────────────────────────────────
 const S={
@@ -171,9 +177,9 @@ function Mod({open,onClose,title,xl,children}){
 
 // ── COURSE DATA ───────────────────────────────────────────────────────────────
 // Helper: derive 9-hole ratings from 18-hole + front adjustment
-function r9(r18,adj){return{f:parseFloat((r18/2+adj).toFixed(1)),b:parseFloat((r18/2-adj).toFixed(1))};}
+function calcR9Split(r18,adj){return{f:parseFloat((r18/2+adj).toFixed(1)),b:parseFloat((r18/2-adj).toFixed(1))};}
 function mkT(name,gender,r18,sl18,adj,front,back,si18f,si18b,altGroup){
-  const {f,b}=r9(r18,adj);
+  const {f,b}=calcR9Split(r18,adj);
   return{name,gender,r18,sl18,rAdj:adj,r9f:f,sl9f:sl18,r9b:b,sl9b:sl18,
     front:[...front],back:[...back],si18f:[...si18f],si18b:[...si18b],
     altParsGroup:altGroup||null, // 'alt' if this tee uses alt pars/si
@@ -368,9 +374,30 @@ const REAL_PLAYERS=[
   {id:'p18',name:'Steph Geyer',handicapIndex:34.9,scoreDiffs:[]},
 ];
 
-// ── STORAGE ───────────────────────────────────────────────────────────────────
-function loadData(){try{const r=localStorage.getItem(SK);return r?JSON.parse(r):null;}catch{return null;}}
-function saveData(d){try{localStorage.setItem(SK,JSON.stringify(d));}catch{}}
+// ── STORAGE (Supabase) ───────────────────────────────────────────────────────
+// Data is fetched from Supabase on load and written back on every dispatch.
+// These helpers are kept for reference but the actual load/save is async below.
+async function loadFromSupabase(){
+  try{
+    const [players, scores, settings, pending] = await Promise.all([
+      supabase.from('players').select('*').order('name'),
+      supabase.from('scores').select('*').order('week_id'),
+      supabase.from('settings').select('*'),
+      supabase.from('pending_players').select('*').order('created_at'),
+    ]);
+    const settingsMap={};
+    (settings.data||[]).forEach(r=>{settingsMap[r.key]=r.value;});
+    return{
+      players:(players.data||[]).map(p=>({id:p.id,name:p.name,handicapIndex:parseFloat(p.handicap_index),scoreDiffs:p.score_diffs||[]})),
+      scores:(scores.data||[]).map(s=>({id:s.id,playerId:s.player_id,courseId:s.course_id,tee:s.tee,nine:s.nine,holes:s.holes,weekId:s.week_id,submittedAt:s.submitted_at})),
+      teeOverrides:settingsMap['teeOverrides']||{},
+      courseVisOverrides:settingsMap['courseVisOverrides']||{},
+      playoffWeeks:settingsMap['playoffWeeks']||[],
+      unreqCourses:settingsMap['unreqCourses']||[],
+      pendingPlayers:(pending.data||[]).map(p=>({id:p.id,name:p.name,handicapIndex:parseFloat(p.handicap_index),mode:p.mode,rawAvg:p.raw_avg})),
+    };
+  }catch(err){console.error('Supabase load error',err);return null;}
+}
 
 // ── MATH ──────────────────────────────────────────────────────────────────────
 function getWkId(date){
@@ -467,14 +494,15 @@ function buildPoStandings(players,scores,to,pw){
   }).filter(p=>p.rounds>0).sort((a,b)=>a.totalNetVsPar-b.totalNetVsPar);
 }
 
-function getInit(){
-  const saved=loadData();
-  if(saved&&saved.players&&saved.players.length)return{pendingPlayers:[],unreqCourses:[],teeOverrides:{},...saved};
-  const fresh={players:REAL_PLAYERS,scores:[],teeOverrides:{},courseVisOverrides:{},playoffWeeks:[],unreqCourses:[],pendingPlayers:[]};
-  saveData(fresh);return fresh;
+function getEmptyState(){
+  return{players:[],scores:[],teeOverrides:{},courseVisOverrides:{},playoffWeeks:[],unreqCourses:[],pendingPlayers:[],loading:true};
 }
 
 // ── COURSE EDITOR ─────────────────────────────────────────────────────────────
+function HH(){
+    return h('tr',null,h('th',{className:'lh'}
+function NI({val,onChange,cls=''}){
+    return h('td',null,h('input',{className:'sc-in '+cls,type:'number',value:val,onChange:ev=>onChange(ev.target.value),onFocus:ev=>ev.target.select()}
 function CourseEditor({courseId,teeOverrides,onSave,onClose}){
   const course=BASE_COURSES[courseId];
   if(!course)return h('div',{className:'alert a-e'},'Course not found.');
@@ -520,12 +548,8 @@ function CourseEditor({courseId,teeOverrides,onSave,onClose}){
   const mF=parsTotal(mainPars.slice(0,9));const mB=parsTotal(mainPars.slice(9));
   const amF=parsTotal(altMPars.slice(0,9));const amB=parsTotal(altMPars.slice(9));
   const alF=parsTotal(altLPars.slice(0,9));const alB=parsTotal(altLPars.slice(9));
-
-  function NI({val,onChange,cls=''}){
-    return h('td',null,h('input',{className:'sc-in '+cls,type:'number',value:val,onChange:ev=>onChange(ev.target.value),onFocus:ev=>ev.target.select()}));
-  }
-  function HH(){
-    return h('tr',null,h('th',{className:'lh'},''),
+));
+  },''),
       ...[1,2,3,4,5,6,7,8,9].map(n=>h('th',{key:'f'+n},n)),
       h('th',null,'Out'),
       ...[10,11,12,13,14,15,16,17,18].map(n=>h('th',{key:'b'+n},n)),
@@ -608,7 +632,7 @@ function CourseEditor({courseId,teeOverrides,onSave,onClose}){
     ),
     h('div',{className:'sc-wrap',style:{marginBottom:16}},
       h('table',{className:'sc-tbl'},
-        h('thead',null,h(HH)),
+        h('thead',null,HH()),
         h('tbody',null,
           // Main par row (Men's)
           h('tr',null,
@@ -651,7 +675,7 @@ function CourseEditor({courseId,teeOverrides,onSave,onClose}){
     h('p',{className:'note'},"Full 18-hole stroke index (1=hardest, 18=easiest). Men's and Ladies' may differ."),
     h('div',{className:'sc-wrap',style:{marginBottom:16}},
       h('table',{className:'sc-tbl'},
-        h('thead',null,h(HH)),
+        h('thead',null,HH()),
         h('tbody',null,
           h('tr',null,h('td',{className:'lbl'},"Men's SI"),
             ...mainMSI.slice(0,9).map((v,i)=>h(NI,{key:i,val:v,onChange:val=>{const n=[...mainMSI];n[i]=val;setMainMSI(n);}})),
@@ -866,7 +890,45 @@ function NewPlayerReg({onSubmit}){
 
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 function App(){
-  const [state,setState]=useState(getInit);
+  const [state,setState]=useState(getEmptyState);
+  const [dbError,setDbError]=useState('');
+
+  // Load from Supabase on mount + subscribe to realtime changes
+  useEffect(()=>{
+    let players_sub, scores_sub, settings_sub, pending_sub;
+
+    async function init(){
+      // Seed players if this is first run
+      await seedPlayersIfEmpty();
+      // Load initial data
+      const data=await loadFromSupabase();
+      if(data){
+        setState(prev=>({...prev,...data,loading:false}));
+      } else {
+        setDbError('Could not connect to database. Check your Supabase URL and key.');
+        setState(prev=>({...prev,loading:false}));
+      }
+    }
+    init();
+
+    // Realtime subscriptions - refresh full state on any change
+    const refresh=async()=>{
+      const data=await loadFromSupabase();
+      if(data) setState(prev=>({...prev,...data}));
+    };
+
+    players_sub=supabase.channel('players_ch').on('postgres_changes',{event:'*',schema:'public',table:'players'},refresh).subscribe();
+    scores_sub=supabase.channel('scores_ch').on('postgres_changes',{event:'*',schema:'public',table:'scores'},refresh).subscribe();
+    settings_sub=supabase.channel('settings_ch').on('postgres_changes',{event:'*',schema:'public',table:'settings'},refresh).subscribe();
+    pending_sub=supabase.channel('pending_ch').on('postgres_changes',{event:'*',schema:'public',table:'pending_players'},refresh).subscribe();
+
+    return()=>{
+      supabase.removeChannel(players_sub);
+      supabase.removeChannel(scores_sub);
+      supabase.removeChannel(settings_sub);
+      supabase.removeChannel(pending_sub);
+    };
+  },[]);
   const [view,setView]=useState('standings');
   const [admin,setAdmin]=useState(false);
   const [adminTab,setAdminTab]=useState('players');
@@ -916,8 +978,16 @@ function App(){
       }
       if(action.type==='RESET_TO_REAL'){
         n={players:REAL_PLAYERS,scores:[],teeOverrides:{},courseVisOverrides:{},playoffWeeks:[],unreqCourses:[],pendingPlayers:[]};
+        // Async DB reset (runs after state update)
+        (async()=>{
+          await supabase.from('scores').delete().neq('id','__none__');
+          await supabase.from('players').delete().neq('id','__none__');
+          await supabase.from('settings').delete().neq('key','__none__');
+          await supabase.from('pending_players').delete().neq('id','__none__');
+          await seedPlayersIfEmpty();
+        })();
       }
-      saveData(n);return n;
+      saveToSupabase(n, action);return n;
     });
   }
 
@@ -1217,6 +1287,19 @@ function App(){
     ...(curPlayer?[{id:'myscores',label:'My Scores'}]:[]),
     ...(admin?[{id:'admin',label:'⚙ Admin'+(pending.length?' ('+pending.length+')':'')}]:[]),
   ];
+
+  // Loading / error screens
+  if(state.loading) return h('div',{style:{minHeight:'100vh',background:'#0d1f16',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:16}},
+    h('div',{style:{fontSize:40}},'⛳'),
+    h('div',{style:{fontFamily:"'Playfair Display',serif",color:'#c9a84c',fontSize:22}},'IMG Golf League'),
+    h('div',{style:{color:'#5a7a65',fontSize:14,fontStyle:'italic'}},'Loading season data...')
+  );
+  if(dbError) return h('div',{style:{minHeight:'100vh',background:'#0d1f16',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:16,padding:24}},
+    h('div',{style:{fontSize:40}},'⛳'),
+    h('div',{style:{fontFamily:"'Playfair Display',serif",color:'#c9a84c',fontSize:20}},'Database Connection Error'),
+    h('div',{style:{background:'#ffe0e0',color:'#8b1a1a',borderRadius:8,padding:'12px 20px',fontSize:14,maxWidth:500,textAlign:'center'}},dbError),
+    h('div',{style:{color:'#5a7a65',fontSize:13,textAlign:'center',maxWidth:400}},'Make sure your SUPABASE_URL and SUPABASE_ANON_KEY are set correctly in the HTML file.')
+  );
 
   return h('div',{className:'shell'},
     loginMod,
