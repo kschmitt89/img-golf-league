@@ -381,15 +381,16 @@ const REAL_PLAYERS=[
 async function seedPlayersIfEmpty(){
   try{
     const {data, error}=await supabase.from('players').select('id').limit(1);
-    if(error){console.error('Seed check error',error);return;}
+    if(error){console.warn('Seed check skipped:',error.message);return;}
     if(data&&data.length===0){
       console.log('Seeding initial players...');
-      for(const p of REAL_PLAYERS){
-        await supabase.from('players').insert({id:p.id,name:p.name,handicap_index:p.handicapIndex,score_diffs:[]});
-      }
-      console.log('Players seeded successfully.');
+      // Bulk insert all at once instead of one-by-one
+      const rows=REAL_PLAYERS.map(p=>({id:p.id,name:p.name,handicap_index:p.handicapIndex,score_diffs:[]}));
+      const {error:insErr}=await supabase.from('players').insert(rows);
+      if(insErr) console.warn('Seed insert warning:',insErr.message);
+      else console.log('Players seeded successfully.');
     }
-  }catch(err){console.error('Seed error',err);}
+  }catch(err){console.warn('Seed skipped:',err.message);}
 }
 async function loadFromSupabase(){
   try{
@@ -930,43 +931,40 @@ function App(){
 
   // Load from Supabase on mount + subscribe to realtime changes
   useEffect(()=>{
-    let players_sub, scores_sub, settings_sub, pending_sub;
 
     async function init(){
+      // Hard timeout - no matter what, clear the loading screen within 12 seconds
+      const timeout=setTimeout(()=>{
+        console.error('Supabase init timed out after 12s');
+        setDbError('Connection timed out. Check that your Supabase URL and Anon Key are correct, and that your tables exist (run supabase_schema.sql in the SQL Editor).');
+        setState(prev=>({...prev,loading:false}));
+      },12000);
       try{
-        // Seed players if this is first run
+        // Seed players if this is first run (non-blocking if it fails)
         await seedPlayersIfEmpty();
         // Load initial data
         const data=await loadFromSupabase();
+        clearTimeout(timeout);
         setState(prev=>({...prev,...data,loading:false}));
         if(data._error){
-          setDbError('Database error: '+data._error+'. Check browser console for details.');
+          setDbError('Database error: '+data._error);
         }
       }catch(err){
+        clearTimeout(timeout);
         console.error('Init error',err);
-        setDbError('Could not connect to database: '+err.message+'. Check your Supabase URL and anon key.');
+        setDbError('Could not connect: '+err.message+'. Check your Supabase URL and Anon Key.');
         setState(prev=>({...prev,loading:false}));
       }
     }
     init();
 
-    // Realtime subscriptions - refresh full state on any change
+    // Poll for updates every 30 seconds (simpler than realtime WebSockets)
     const refresh=async()=>{
       const data=await loadFromSupabase();
-      if(data) setState(prev=>({...prev,...data}));
+      if(data&&!data._error) setState(prev=>({...prev,...data}));
     };
-
-    players_sub=supabase.channel('players_ch').on('postgres_changes',{event:'*',schema:'public',table:'players'},refresh).subscribe();
-    scores_sub=supabase.channel('scores_ch').on('postgres_changes',{event:'*',schema:'public',table:'scores'},refresh).subscribe();
-    settings_sub=supabase.channel('settings_ch').on('postgres_changes',{event:'*',schema:'public',table:'settings'},refresh).subscribe();
-    pending_sub=supabase.channel('pending_ch').on('postgres_changes',{event:'*',schema:'public',table:'pending_players'},refresh).subscribe();
-
-    return()=>{
-      supabase.removeChannel(players_sub);
-      supabase.removeChannel(scores_sub);
-      supabase.removeChannel(settings_sub);
-      supabase.removeChannel(pending_sub);
-    };
+    const pollInterval=setInterval(refresh,30000);
+    return()=>clearInterval(pollInterval);
   },[]);
   const [view,setView]=useState('standings');
   const [admin,setAdmin]=useState(false);
