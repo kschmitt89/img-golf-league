@@ -131,7 +131,7 @@ const MIN_WKS_PO=5;
 // Replace these two values with your own from supabase.com → Project Settings → API
 const SUPABASE_URL = 'https://eepywiguktztiksrscyd.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcHl3aWd1a3R6dGlrc3JzY3lkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzOTUxNzIsImV4cCI6MjA5Mzk3MTE3Mn0.LPNB1i8k-PTZaMbbZ7KrBOoIY9j3qT1zLlBulOHguHA';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ── INLINE STYLES ─────────────────────────────────────────────────────────────
 const S={
@@ -380,13 +380,13 @@ const REAL_PLAYERS=[
 
 async function seedPlayersIfEmpty(){
   try{
-    const {data, error}=await supabase.from('players').select('id').limit(1);
+    const {data, error}=await db.from('players').select('id').limit(1);
     if(error){console.warn('Seed check skipped:',error.message);return;}
     if(data&&data.length===0){
       console.log('Seeding initial players...');
       // Bulk insert all at once instead of one-by-one
       const rows=REAL_PLAYERS.map(p=>({id:p.id,name:p.name,handicap_index:p.handicapIndex,score_diffs:[]}));
-      const {error:insErr}=await supabase.from('players').insert(rows);
+      const {error:insErr}=await db.from('players').insert(rows);
       if(insErr) console.warn('Seed insert warning:',insErr.message);
       else console.log('Players seeded successfully.');
     }
@@ -395,10 +395,10 @@ async function seedPlayersIfEmpty(){
 async function loadFromSupabase(){
   try{
     const results = await Promise.all([
-      supabase.from('players').select('*').order('name'),
-      supabase.from('scores').select('*').order('week_id'),
-      supabase.from('settings').select('*'),
-      supabase.from('pending_players').select('*').order('created_at'),
+      db.from('players').select('*').order('name'),
+      db.from('scores').select('*').order('week_id'),
+      db.from('settings').select('*'),
+      db.from('pending_players').select('*').order('created_at'),
     ]);
     const [playersRes, scoresRes, settingsRes, pendingRes] = results;
     [playersRes, scoresRes, settingsRes, pendingRes].forEach((r,i)=>{
@@ -1019,10 +1019,10 @@ function App(){
         n={players:REAL_PLAYERS,scores:[],teeOverrides:{},courseVisOverrides:{},playoffWeeks:[],unreqCourses:[],pendingPlayers:[]};
         // Async DB reset (runs after state update)
         (async()=>{
-          await supabase.from('scores').delete().neq('id','__none__');
-          await supabase.from('players').delete().neq('id','__none__');
-          await supabase.from('settings').delete().neq('key','__none__');
-          await supabase.from('pending_players').delete().neq('id','__none__');
+          await db.from('scores').delete().neq('id','__none__');
+          await db.from('players').delete().neq('id','__none__');
+          await db.from('settings').delete().neq('key','__none__');
+          await db.from('pending_players').delete().neq('id','__none__');
           await seedPlayersIfEmpty();
         })();
       }
