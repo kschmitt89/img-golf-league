@@ -536,9 +536,18 @@ function getEmptyState(){
 
 // ── COURSE EDITOR ─────────────────────────────────────────────────────────────
 function HH(){
-    return h('tr',null,h('th',{className:'lh'}
+  return h('tr',null,
+    h('th',{className:'lh'},''),
+    ...[1,2,3,4,5,6,7,8,9].map(n=>h('th',{key:'f'+n},n)),
+    h('th',null,'Out'),
+    ...[10,11,12,13,14,15,16,17,18].map(n=>h('th',{key:'b'+n},n)),
+    h('th',null,'In'),h('th',null,'Total')
+  );
+}
 function NI({val,onChange,cls=''}){
-    return h('td',null,h('input',{className:'sc-in '+cls,type:'number',value:val,onChange:ev=>onChange(ev.target.value),onFocus:ev=>ev.target.select()}
+  return h('td',null,h('input',{className:'sc-in '+cls,type:'number',value:val,
+    onChange:ev=>onChange(ev.target.value),onFocus:ev=>ev.target.select()}));
+}
 function CourseEditor({courseId,teeOverrides,onSave,onClose}){
   const course=BASE_COURSES[courseId];
   if(!course)return h('div',{className:'alert a-e'},'Course not found.');
@@ -584,13 +593,6 @@ function CourseEditor({courseId,teeOverrides,onSave,onClose}){
   const mF=parsTotal(mainPars.slice(0,9));const mB=parsTotal(mainPars.slice(9));
   const amF=parsTotal(altMPars.slice(0,9));const amB=parsTotal(altMPars.slice(9));
   const alF=parsTotal(altLPars.slice(0,9));const alB=parsTotal(altLPars.slice(9));
-));
-  },''),
-      ...[1,2,3,4,5,6,7,8,9].map(n=>h('th',{key:'f'+n},n)),
-      h('th',null,'Out'),
-      ...[10,11,12,13,14,15,16,17,18].map(n=>h('th',{key:'b'+n},n)),
-      h('th',null,'In'),h('th',null,'Total'));
-  }
 
   function save(){
     const parsI=mainPars.map(v=>parseInt(v)||4);
