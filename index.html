@@ -9,21 +9,23 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--g:#1a3d2b;--g2:#2d6a4f;--g3:#40916c;--gl:#d8f3dc;--gold:#c9a84c;--gold2:#e8c97e;--cr:#fdf8f0;--cr2:#f5ede0;--dk:#0d1f16;--tx:#1a2e1f;--mt:#5a7a65;--br:#c8dbc0;--rd:#8b1a1a;--sh:0 4px 24px rgba(26,61,43,0.13)}
 html,body{font-family:'Source Serif 4',Georgia,serif;background:var(--g);min-height:100vh;color:var(--tx)}
-.shell{min-height:100vh;display:flex;flex-direction:column}
+.shell{min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
 .hdr{background:var(--dk);padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:4px}
 .hdr-logo{display:flex;align-items:center;gap:10px;padding:10px 0}
 .logo-text{font-family:'Playfair Display',serif;color:var(--gold);font-size:19px;font-weight:700}
 .logo-sub{font-size:10px;color:var(--gold2);letter-spacing:2px;text-transform:uppercase}
-.hdr-nav{display:flex;gap:2px;flex-wrap:wrap}
+.hdr-nav{display:flex;gap:2px;flex-wrap:wrap;align-items:center}
 .main{flex:1;padding:18px;max-width:1150px;margin:0 auto;width:100%}
 @media(max-width:500px){.main{padding:10px 8px}.pg-title{font-size:20px}}
 .pg-title{font-family:'Playfair Display',serif;color:var(--cr);font-size:28px;font-weight:700;margin-bottom:4px}
 .pg-sub{color:var(--gold2);font-size:14px;margin-bottom:20px;font-style:italic}
-.card{background:var(--cr);border-radius:12px;padding:20px;box-shadow:var(--sh);border:1px solid var(--br)}
+.card{background:var(--cr);border-radius:12px;padding:20px;box-shadow:var(--sh);border:1px solid var(--br);min-width:0}
+@media(max-width:500px){.card{padding:14px 12px;border-radius:10px}}
 .card-title{font-family:'Playfair Display',serif;font-size:17px;color:var(--g);margin-bottom:14px}
 .card-sm{font-family:'Playfair Display',serif;font-size:14px;color:var(--g);margin-bottom:10px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
+@media(max-width:500px){.g3{grid-template-columns:1fr 1fr;gap:8px}}
 .stat-box{background:var(--g);border-radius:10px;padding:14px;text-align:center}
 .stat-n{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);font-weight:700}
 .stat-l{font-size:11px;color:var(--gl);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
@@ -33,8 +35,16 @@ html,body{font-family:'Source Serif 4',Georgia,serif;background:var(--g);min-hei
 @media(max-width:500px){.tbl th,.tbl td{padding:6px 5px;font-size:12px}}
 .tbl tr:hover td{background:var(--gl)}
 .tbl tr:last-child td{border-bottom:none}
+/* Flag-on-flagstick rank indicators */
+.rk-wrap{display:inline-flex;flex-direction:column;align-items:flex-start;gap:0;position:relative;width:22px;height:28px;vertical-align:middle}
+.rk-flag{display:flex;align-items:center;justify-content:center;width:18px;height:14px;font-weight:700;font-size:10px;clip-path:polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);position:relative;left:2px;letter-spacing:-0.5px}
+.rk-stick{width:2px;height:16px;background:#888;margin-left:2px;margin-top:-2px;border-radius:0 0 1px 1px}
+.rk1 .rk-flag{background:var(--gold);color:var(--dk)}
+.rk2 .rk-flag{background:#a0a8a0;color:var(--dk)}
+.rk3 .rk-flag{background:#b87333;color:var(--cr)}
+.rko .rk-flag{background:#c8dbc0;color:var(--g)}
+/* Keep old .rk for compatibility in other places */
 .rk{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-weight:700;font-size:12px}
-.rk1{background:var(--gold);color:var(--dk)}.rk2{background:#b0b8b0;color:var(--dk)}.rk3{background:#b87333;color:var(--cr)}.rko{background:var(--gl);color:var(--g)}
 .po-badge{background:var(--g2);color:var(--gold2);font-size:10px;padding:2px 7px;border-radius:4px;margin-left:6px;white-space:nowrap}
 .fg{margin-bottom:13px}
 .fl{display:block;font-size:11px;color:var(--mt);margin-bottom:4px;letter-spacing:.3px;text-transform:uppercase}
@@ -1072,7 +1082,7 @@ function App(){
   // Views
   const standView=h('div',null,
     h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:16,flexWrap:'wrap',gap:8}},
-      h('div',null,h('div',{className:'pg-title'},'🏆 Season Standings'),h('div',{className:'pg-sub'},'IMG Golf League · 2025 Season')),
+      h('div',null,h('div',{className:'pg-title'},'🏆 Season Standings'),h('div',{className:'pg-sub'},'IMG Golf League · 2026 Season')),
       h('div',{style:{display:'flex',gap:7,flexWrap:'wrap'}},
         curPlayer&&h(Btn,{v:'g',onClick:()=>setShowScore(true)},'⛳ Submit Score'),
         !loginWho&&h(Btn,{v:'o',onClick:()=>{setLoginWho(null);setLoginInput('');setShowLogin(true);}},'Sign In')
@@ -1089,7 +1099,10 @@ function App(){
       h('table',{className:'tbl'},
         h('thead',null,h('tr',null,h('th',{style:{width:34}},'#'),h('th',null,'Player'),h('th',{style:{width:34,textAlign:'center'}},'Rds'),h('th',{style:{width:34,textAlign:'center'}},'Pts'),h('th',{style:{width:34,textAlign:'center'}},'HI'))),
         h('tbody',null,standings.map((p,i)=>h('tr',{key:p.id},
-          h('td',null,h('span',{className:'rk rk'+(i<3?i+1:'o')},i+1)),
+          h('td',null,h('div',{className:'rk-wrap rk'+(i<3?i+1:'o')},
+              h('div',{className:'rk-flag'},i+1),
+              h('div',{className:'rk-stick'})
+            )),
           h('td',null,h('div',{style:{display:'flex',alignItems:'center',gap:7}},
             h(Av,{name:p.name,size:26}),p.name,
             i<8&&allWks.length>=MIN_WKS_PO&&standings.length>=8&&h('span',{className:'po-badge'},'Playoff Contention')
@@ -1119,7 +1132,10 @@ function App(){
           h('tbody',null,wPts.map((s,i)=>{
             const d=getScoreData(s,to,state.players);const p=state.players.find(pl=>pl.id===s.playerId);const c=BASE_COURSES[s.courseId];
             return h('tr',{key:s.id},
-              h('td',null,h('span',{className:'rk rk'+(i<3?i+1:'o')},i+1)),
+              h('td',null,h('div',{className:'rk-wrap rk'+(i<3?i+1:'o')},
+              h('div',{className:'rk-flag'},i+1),
+              h('div',{className:'rk-stick'})
+            )),
               h('td',null,h('div',{style:{display:'flex',alignItems:'center',gap:5}},h(Av,{name:p?.name||'?',size:22}),p?.name||'?')),
               h('td',null,c?.name||s.courseId),h('td',null,s.tee),
               h('td',null,d?.gross??'—'),h('td',null,d?.ch9??'—'),h('td',null,d?.net??'—'),
@@ -1183,7 +1199,10 @@ function App(){
                 h('table',{className:'tbl'},
                   h('thead',null,h('tr',null,h('th',null,'Rank'),h('th',null,'Player'),h('th',null,'Rounds'),h('th',null,'Net vs Par'),h('th',null,'HCP'))),
                   h('tbody',null,poStandings.map((p,i)=>h('tr',{key:p.id},
-                    h('td',null,h('span',{className:'rk rk'+(i<3?i+1:'o')},i+1)),
+                    h('td',null,h('div',{className:'rk-wrap rk'+(i<3?i+1:'o')},
+              h('div',{className:'rk-flag'},i+1),
+              h('div',{className:'rk-stick'})
+            )),
                     h('td',null,h('div',{style:{display:'flex',alignItems:'center',gap:7}},h(Av,{name:p.name,size:22}),p.name)),
                     h('td',null,p.rounds+'/'+state.playoffWeeks.length),
                     h('td',null,h('span',{className:'chip '+(p.totalNetVsPar<0?'chip-g':p.totalNetVsPar>5?'chip-b':'chip-n')},(p.totalNetVsPar>=0?'+':'')+p.totalNetVsPar)),
@@ -1310,7 +1329,7 @@ function App(){
       h('div',{className:'card',style:{marginBottom:16}},
         h('div',{className:'card-title'},'🏆 Configure Playoffs'),
         h('div',{className:'alert a-i',style:{marginBottom:12}},'Enter 3 Tuesday start dates (YYYY-MM-DD) for the playoff weeks.'),
-        h('div',{className:'fg'},h('label',{className:'fl'},'3 Week Dates, Comma-Separated'),h('input',{className:'fi',value:poInput,onChange:ev=>setPoInput(ev.target.value),placeholder:'2025-08-05,2025-08-12,2025-08-19'})),
+        h('div',{className:'fg'},h('label',{className:'fl'},'3 Week Dates, Comma-Separated'),h('input',{className:'fi',value:poInput,onChange:ev=>setPoInput(ev.target.value),placeholder:'2026-08-04,2026-08-11,2026-08-18'})),
         h(Btn,{v:'p',onClick:()=>{const weeks=poInput.split(',').map(w=>w.trim()).filter(w=>/^\d{4}-\d{2}-\d{2}$/.test(w));if(weeks.length!==3)return setAdminAlrt({t:'e',m:'Enter exactly 3 YYYY-MM-DD dates.'});dispatch({type:'SET_PLAYOFF_WEEKS',weeks});setAdminAlrt({t:'s',m:'Saved!'});}},'Save Playoff Weeks'),
         state.playoffWeeks?.length>0&&h('div',{style:{marginTop:9,fontSize:12,color:'#5a7a65'}},'Current: '+state.playoffWeeks.map(w=>wkLabel(w)).join(' · ')),
         allWks.length>0&&h('div',{style:{marginTop:13}},h('div',{className:'card-sm'},'Quick-add from existing weeks:'),h('div',{style:{display:'flex',flexWrap:'wrap',gap:6}},allWks.map(w=>h(ChoiceBtn,{key:w,selected:false,onClick:()=>setPoInput(p=>p?p+','+w:w)},wkLabel(w)))))
@@ -1318,7 +1337,10 @@ function App(){
       h('div',{className:'card'},h('div',{className:'card-title'},'🏅 Current Top 8'),
         standings.length===0?h('div',{className:'nd'},'No scores yet.'):
         standings.slice(0,Math.min(8,standings.length)).map((p,i)=>h('div',{key:p.id,className:'pr'},
-          h('div',{style:{display:'flex',alignItems:'center',gap:9}},h('span',{className:'rk rk'+(i<3?i+1:'o')},i+1),h(Av,{name:p.name,size:26}),h('span',{style:{color:'#1a2e1f'}},p.name)),
+          h('div',{style:{display:'flex',alignItems:'center',gap:9}},h('div',{className:'rk-wrap rk'+(i<3?i+1:'o')},
+              h('div',{className:'rk-flag'},i+1),
+              h('div',{className:'rk-stick'})
+            ),h(Av,{name:p.name,size:26}),h('span',{style:{color:'#1a2e1f'}},p.name)),
           h('span',{style:{color:'#5a7a65',fontSize:12}},p.totalPoints+' pts · HI '+p.handicapIndex.toFixed(1))
         ))
       )
@@ -1349,7 +1371,7 @@ function App(){
     loginMod,
     h(Mod,{open:showScore,onClose:()=>setShowScore(false),title:'⛳ Submit Score'},h(ScoreEntry,{state,dispatch,curPlayer,isAdmin:false,onDone:()=>setShowScore(false)})),
     h('div',{className:'hdr'},
-      h('div',{className:'hdr-logo'},h('span',{style:{fontSize:26}},'⛳'),h('div',null,h('div',{className:'logo-text'},'IMG Golf League'),h('div',{className:'logo-sub'},'2025 Season'))),
+      h('div',{className:'hdr-logo'},h('span',{style:{fontSize:26}},'⛳'),h('div',null,h('div',{className:'logo-text'},'IMG Golf League'),h('div',{className:'logo-sub'},'2026 Season'))),
       h('div',{className:'hdr-nav'},
         navItems.map(n=>h(NavBtn,{key:n.id,active:view===n.id,onClick:()=>setView(n.id)},n.label)),
         h('div',{style:{width:1,background:'rgba(201,168,76,.3)',margin:'6px 4px'}}),
