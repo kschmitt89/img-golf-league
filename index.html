@@ -224,16 +224,16 @@ const M_SI_TWP_F=[4,14,16,12,10,2,18,8,6];
 const M_SI_TWP_B=[9,15,11,3,1,17,7,5,13];
 
 // Bella Vista - par 70, estimated SI (placeholder - verify with scorecard)
-const PAR70_BEL_F=[4,4,4,3,4,4,4,4,3]; // front par 34
-const PAR70_BEL_B=[4,3,5,3,4,4,4,5,4]; // back par 36
-const M_SI_BEL_F=[5,1,9,17,11,3,13,7,15]; // estimated
-const M_SI_BEL_B=[14,18,2,16,6,10,4,8,12]; // estimated
+const PAR70_BEL_F=[5,4,3,4,4,4,3,4,4]; // front par 35
+const PAR70_BEL_B=[5,4,3,4,3,4,5,4,3]; // back par 35
+const M_SI_BEL_F=[3,5,17,7,9,13,15,11,1]; // confirmed from scorecard
+const M_SI_BEL_B=[6,16,14,2,8,10,4,18,12]; // confirmed from scorecard
 
 // PineCrest - par 70, estimated pars/SI (verify with scorecard)
-const PAR70_PIN_F=[4,4,3,4,3,4,5,5,3]; // front par 35
-const PAR70_PIN_B=[4,3,5,4,3,4,4,3,5]; // back par 35
-const M_SI_PIN_F=[5,1,15,13,9,11,7,3,17];
-const M_SI_PIN_B=[14,18,2,8,16,4,12,10,6];
+const PAR70_PIN_F=[4,3,5,4,3,4,4,4,4]; // front par 35 - confirmed from scorecard
+const PAR70_PIN_B=[4,3,4,5,4,3,4,4,4]; // back par 35 - confirmed from scorecard
+const M_SI_PIN_F=[14,12,8,16,10,4,6,18,2]; // confirmed from scorecard
+const M_SI_PIN_B=[11,13,5,9,3,17,15,7,1]; // confirmed from scorecard
 
 const BASE_COURSES={
   kimberton:{id:'kimberton',name:'Kimberton Golf Club',isHome:true,tees:[
@@ -263,24 +263,18 @@ const BASE_COURSES={
     mkT('White (L)','L',69.1,119,0,PAR70_TWP_F,PAR70_TWP_B,M_SI_TWP_F,M_SI_TWP_B),
     mkT('Red (L)','L',67.7,119,0,PAR70_TWP_F,PAR70_TWP_B,M_SI_TWP_F,M_SI_TWP_B),
   ]},
-  bella_vista:{id:'bella_vista',name:'Bella Vista Golf Course',isHome:false,needsVerification:true,tees:[
+  bella_vista:{id:'bella_vista',name:'Bella Vista Golf Course',isHome:false,tees:[
     mkT('Blue','M',70.0,133,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
     mkT('White','M',68.5,130,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
-    mkT('White/Gold','M',66.6,127,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
     mkT('Gold','M',65.3,123,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
-    mkT('White (L)','L',73.6,136,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
-    mkT('White/Gold (L)','L',71.4,132,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
-    mkT('Gold (L)','L',69.6,128,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
     mkT('Red (L)','L',67.6,123,0,PAR70_BEL_F,PAR70_BEL_B,M_SI_BEL_F,M_SI_BEL_B),
   ]},
-  pinecrest:{id:'pinecrest',name:'PineCrest Country Club',isHome:false,needsVerification:true,tees:[
-    mkT('Black','M',69.4,132,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
-    mkT('Blue','M',67.8,128,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
-    mkT('White','M',65.9,122,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
-    mkT('Gold','M',63.5,115,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
-    mkT('White (L)','L',73.4,130,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
-    mkT('Gold (L)','L',70.1,125,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
-    mkT('Red (L)','L',67.8,118,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
+  pinecrest:{id:'pinecrest',name:'PineCrest Country Club',isHome:false,tees:[
+    mkT('Blue','M',69.4,132,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
+    mkT('White','M',67.0,129,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
+    mkT('Gold','M',64.9,120,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
+    mkT('Gold (L)','L',69.6,124,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
+    mkT('Red (L)','L',68.4,120,0,PAR70_PIN_F,PAR70_PIN_B,M_SI_PIN_F,M_SI_PIN_B),
   ]},
   // Previously loaded courses (abbreviated - same as v7)
   jeffersonville:{id:'jeffersonville',name:'Jeffersonville Golf Club',isHome:false,tees:[
@@ -647,8 +641,6 @@ function CourseEditor({courseId,teeOverrides,onSave,onClose}){
   return h('div',null,
     saved&&h('div',{className:'alert a-s'},'✅ Course data saved.'),
     alrt&&h('div',{className:'alert a-e'},alrt),
-    course.needsVerification&&h('div',{className:'alert a-w',style:{marginBottom:14}},
-      '⚠️ Hole-by-hole pars and stroke indexes for this course could not be confirmed from public sources. Please verify against an actual scorecard and update below.'),
 
     // Rating & Slope
     h('div',{className:'card-sm',style:{marginTop:0}},'Rating, Slope & Options'),
@@ -963,7 +955,7 @@ function PinGate({onAuth}){
     }
   }
   function handleKey(ev){
-    if(ev.key==='Enter'&&pin.length>0)attempt(pin);
+    if(ev.key==='Enter'&&pin.length>=4)attempt(pin);
   }
 
   return h('div',{style:{minHeight:'100vh',background:'#0d1f16',display:'flex',alignItems:'center',justifyContent:'center',padding:20}},
@@ -979,7 +971,7 @@ function PinGate({onAuth}){
       h('input',{
         type:'password',
         inputMode:'text',
-        maxLength:20,
+        maxLength:6,
         value:pin,
         autoFocus:true,
         onChange:ev=>{
@@ -1369,7 +1361,7 @@ function App(){
               h('div',{style:{fontWeight:600,color:'#1a2e1f',display:'flex',alignItems:'center',gap:6,flexWrap:'wrap'}},
                 c.name,c.isHome&&' ⭐',
                 h('span',{style:{background:vis?'#d8f3dc':'#ffe0e0',color:vis?'#1b4332':'#8b1a1a',fontSize:10,padding:'1px 5px',borderRadius:3,fontWeight:600}},vis?'Visible':'Hidden'),
-                c.needsVerification&&h('span',{style:{background:'#fff3cd',color:'#7a5000',fontSize:10,padding:'1px 5px',borderRadius:3,fontWeight:600}},'⚠️ Verify'),
+                
                 hasEdits&&h('span',{style:{background:'#d8f3dc',color:'#1b4332',fontSize:10,padding:'1px 5px',borderRadius:3,fontWeight:600}},'Edited')
               ),
               h('div',{style:{fontSize:11,color:'#5a7a65',marginTop:2}},c.tees.map(t=>t.gender==='L'?t.name+' (L)':t.name).join(' · '))
