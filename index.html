@@ -132,12 +132,15 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 <div class="shell" id="root"></div>
 <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 const {useState,useMemo,useEffect,useCallback}=React;
 const h=React.createElement;
 const ADMIN_PASS='GolfLeague2025!';
 const MIN_WKS_PO=5;
+const SITE_PIN='1234'; // Change this to your preferred 4-digit PIN
+const SITE_PIN_KEY='img_golf_pin_v1'; // localStorage key for remembering auth
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
 // Replace these two values with your own from supabase.com → Project Settings → API
@@ -941,6 +944,65 @@ function NewPlayerReg({onSubmit}){
   );
 }
 
+
+// ── PIN GATE ─────────────────────────────────────────────────────────────────
+function PinGate({onAuth}){
+  const [pin,setPin]=useState('');
+  const [err,setErr]=useState('');
+  const [shake,setShake]=useState(false);
+
+  function attempt(p){
+    if(p===SITE_PIN){
+      localStorage.setItem(SITE_PIN_KEY,'1');
+      onAuth();
+    } else {
+      setErr('Incorrect PIN — try again');
+      setShake(true);
+      setPin('');
+      setTimeout(()=>setShake(false),600);
+    }
+  }
+  function handleKey(ev){
+    if(ev.key==='Enter'&&pin.length>=4)attempt(pin);
+  }
+
+  return h('div',{style:{minHeight:'100vh',background:'#0d1f16',display:'flex',alignItems:'center',justifyContent:'center',padding:20}},
+    h('div',{style:{
+      background:'#fdf8f0',borderRadius:16,padding:36,maxWidth:340,width:'100%',
+      border:'2px solid #c9a84c',boxShadow:'0 20px 60px rgba(0,0,0,.4)',textAlign:'center',
+      transform:shake?'translateX(8px)':'none',transition:'transform 0.1s'
+    }},
+      h('div',{style:{fontSize:40,marginBottom:12}},'⛳'),
+      h('div',{style:{fontFamily:"'Playfair Display',serif",color:'#1a3d2b',fontSize:22,fontWeight:700,marginBottom:4}},'IMG Golf League'),
+      h('div',{style:{fontSize:13,color:'#5a7a65',marginBottom:24,fontStyle:'italic'}},'2026 Season · Members Only'),
+      h('div',{style:{fontSize:12,color:'#5a7a65',textTransform:'uppercase',letterSpacing:1,marginBottom:8,fontWeight:600}},'Enter PIN to continue'),
+      h('input',{
+        type:'password',
+        inputMode:'numeric',
+        maxLength:6,
+        value:pin,
+        autoFocus:true,
+        onChange:ev=>{
+          const v=ev.target.value.replace(/\D/g,'');
+          setPin(v);
+          setErr('');
+          if(v.length>=4)attempt(v);
+        },
+        onKeyDown:handleKey,
+        style:{
+          width:'100%',padding:'12px',border:'1.5px solid #c8dbc0',borderRadius:10,
+          fontSize:24,textAlign:'center',letterSpacing:8,fontFamily:"'Playfair Display',serif",
+          color:'#1a3d2b',background:'white',outline:'none',marginBottom:8
+        }
+      }),
+      err&&h('div',{style:{color:'#8b1a1a',fontSize:13,marginTop:4}},err),
+      h('div',{style:{fontSize:11,color:'#c8dbc0',marginTop:16}},
+        'Ask your league admin for the PIN'
+      )
+    )
+  );
+}
+
 // ── MAIN APP ──────────────────────────────────────────────────────────────────
 function App(){
   const [state,setState]=useState(getEmptyState);
@@ -1044,6 +1106,20 @@ function App(){
       saveToSupabase(n, action);return n;
     });
   }
+  // Generate QR code when share view becomes active
+  useEffect(()=>{
+    if(view==='share'){
+      setTimeout(()=>{
+        const canvas=document.getElementById('qr-canvas');
+        if(canvas&&window.QRCode){
+          window.QRCode.toCanvas(canvas,window.location.href,{
+            width:220,margin:2,
+            color:{dark:'#1a3d2b',light:'#fdf8f0'}
+          },function(err){if(err)console.error('QR error',err);});
+        }
+      },150);
+    }
+  },[view]);
 
   const standings=useMemo(()=>buildStandings(state.players,state.scores,to),[state.players,state.scores,to]);
   const poStandings=useMemo(()=>buildPoStandings(state.players,state.scores,to,state.playoffWeeks),[state]);
@@ -1349,7 +1425,7 @@ function App(){
 
   const navItems=[
     {id:'standings',label:'Standings'},{id:'weekly',label:'Weekly Results'},{id:'playoffs',label:'Playoffs'},
-    {id:'join',label:'Join League'},
+    {id:'join',label:'Join League'},{id:'share',label:'📲 Share'},
     ...(curPlayer?[{id:'myscores',label:'My Scores'}]:[]),
     ...(admin?[{id:'admin',label:'⚙ Admin'+(pending.length?' ('+pending.length+')':'')}]:[]),
   ];
@@ -1367,7 +1443,24 @@ function App(){
     h('div',{style:{color:'#5a7a65',fontSize:13,textAlign:'center',maxWidth:400}},'Make sure your SUPABASE_URL and SUPABASE_ANON_KEY are set correctly in the HTML file.')
   );
 
-  return h('div',{className:'shell'},
+
+  const shareView=h('div',null,
+    h('div',{className:'pg-title'},'📲 Share'),
+    h('div',{className:'pg-sub'},'Scan to open the league on any device'),
+    h('div',{className:'card',style:{maxWidth:360,margin:'0 auto',textAlign:'center',padding:32}},
+      h('div',{style:{fontFamily:"'Playfair Display',serif",fontSize:16,color:'var(--g)',marginBottom:6}},'IMG Golf League'),
+      h('div',{style:{fontSize:13,color:'var(--mt)',marginBottom:20,fontStyle:'italic'}},'2026 Season · Members Only'),
+      h('canvas',{id:'qr-canvas',style:{borderRadius:12,border:'4px solid var(--gold)',display:'block',margin:'0 auto'}}),
+      h('div',{style:{marginTop:16,fontSize:12,color:'var(--mt)',wordBreak:'break-all',padding:'8px 12px',background:'var(--cr2)',borderRadius:8,fontFamily:'monospace'}},
+        window.location.href
+      ),
+      h('div',{style:{marginTop:16,fontSize:12,color:'var(--mt)',fontStyle:'italic'}},"Share the PIN with new members so they can log in"),
+      h('div',{style:{marginTop:8,display:'inline-block',background:'var(--g)',color:'var(--gold)',fontFamily:"'Playfair Display',serif",fontSize:18,fontWeight:700,padding:'10px 24px',borderRadius:8,letterSpacing:3}},
+        'PIN: '+SITE_PIN
+      )
+    )
+  );
+    return h('div',{className:'shell'},
     loginMod,
     h(Mod,{open:showScore,onClose:()=>setShowScore(false),title:'⛳ Submit Score'},h(ScoreEntry,{state,dispatch,curPlayer,isAdmin:false,onDone:()=>setShowScore(false)})),
     h('div',{className:'hdr'},
@@ -1380,13 +1473,19 @@ function App(){
     ),
     h('div',{className:'main'},
       view==='standings'&&standView,view==='weekly'&&wkView,view==='playoffs'&&poView,
+      view==='share'&&shareView,
       view==='join'&&h(NewPlayerReg,{onSubmit:(data)=>dispatch({type:'ADD_PENDING',player:{...data,id:'pending_'+Date.now()}})}),
       view==='myscores'&&(curPlayer?myView:h('div',{className:'alert a-e'},'Please sign in first.')),
       view==='admin'&&(admin?admView:h('div',{className:'alert a-e'},'Admin access required.'))
     )
   );
 }
-ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+function Root(){
+  const [authed,setAuthed]=useState(()=>localStorage.getItem(SITE_PIN_KEY)==='1');
+  if(!authed)return h(PinGate,{onAuth:()=>setAuthed(true)});
+  return h(App);
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(Root));
 </script>
 </body>
 </html>
