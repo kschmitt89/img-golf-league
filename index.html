@@ -158,7 +158,7 @@ const DEFAULT_SEASON_WEEKS=[
   '2026-06-30','2026-07-07','2026-07-14','2026-07-21','2026-07-28','2026-08-04',
   '2026-08-11','2026-08-18','2026-08-25','2026-09-01',
 ];
-const SITE_PIN='IMG@VG'; // Change this to your preferred 4-digit PIN
+const SITE_PIN='1234'; // Change this to your preferred 4-digit PIN
 const SITE_PIN_KEY='img_golf_pin_v1'; // localStorage key for remembering auth
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
@@ -1430,7 +1430,7 @@ function App(){
           h('span',{style:{fontWeight:600,fontSize:13,color:'#1a2e1f'}},
             isPriorRow?s.week+' · 2025':wkLabel(s.weekId)
           ),
-          isPriorRow&&h('span',{style:{fontSize:9,background:'#e8ede8',color:'#5a7a65',padding:'1px 5px',borderRadius:3}},'Prior'),
+          
           !isPriorRow&&!closed&&h('span',{style:{fontSize:9,background:'#fff3cd',color:'#7a5000',padding:'1px 5px',borderRadius:3}},'Pending'),
           inBest&&h('span',{style:{fontSize:9,background:'#2d6a4f',color:'white',padding:'1px 5px',borderRadius:3}},'HI ✓')
         ),
@@ -1442,7 +1442,7 @@ function App(){
         h('div',{style:{fontSize:13,color:'#1a2e1f',fontWeight:600}},'G: '+(isPriorRow?s.gross:(d?.gross??'—'))),
         h('div',{style:{display:'flex',gap:4,justifyContent:'flex-end',marginTop:2,alignItems:'center'}},
           diff9!=null&&h('span',{style:{fontSize:10,color:'#5a7a65'}},'diff '+diff9.toFixed(1)),
-          hi_after&&h('span',{style:{fontSize:10,color:'#1a3d2b',fontWeight:600}},'→ HI '+hi_after.toFixed(1)),
+          !isPriorRow&&hi_after&&h('span',{style:{fontSize:10,color:'#1a3d2b',fontWeight:600}},'→ HI '+hi_after.toFixed(1)),
           !isPriorRow&&closed&&myPts&&h('span',{className:'chip chip-g',style:{fontSize:10}},myPts+' pts'),
           !isPriorRow&&!closed&&h('span',{className:'chip chip-n',style:{fontSize:10}},'TBD')
         )
@@ -1523,6 +1523,21 @@ function App(){
         h('span',{style:{fontSize:12,color:'var(--mt)'}},priorScores.length+' rounds · used to seed starting HI')
       ),
       priorScores.map(s=>ScoreRow(s,true))
+    ),
+
+    // ── Legend ────────────────────────────────────────────────────────────────
+    h('div',{style:{
+      fontSize:11,color:'var(--mt)',marginTop:10,padding:'10px 12px',
+      background:'rgba(255,255,255,0.08)',borderRadius:8,lineHeight:1.8
+    }},
+      h('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:4}},
+        h('span',{style:{background:'#d8f3dc',borderRadius:4,padding:'1px 6px',fontSize:9,fontWeight:600,color:'#2d6a4f'}},'HI ✓'),
+        h('span',null,'Round is included in the current handicap calculation (best 5 of trailing 10)')
+      ),
+      h('div',{style:{display:'flex',alignItems:'center',gap:6}},
+        h('span',{style:{width:14,height:14,background:'#d8f3dc',borderRadius:3,display:'inline-block',flexShrink:0}}),
+        h('span',null,'Row shading indicates the 10 most recent rounds used in the rolling window')
+      )
     )
   );
 })();
