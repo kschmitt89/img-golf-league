@@ -158,7 +158,7 @@ const DEFAULT_SEASON_WEEKS=[
   '2026-06-30','2026-07-07','2026-07-14','2026-07-21','2026-07-28','2026-08-04',
   '2026-08-11','2026-08-18','2026-08-25','2026-09-01',
 ];
-const SITE_PIN='IMG@VG'; // Change this to your preferred 4-digit PIN
+const SITE_PIN='1234'; // Change this to your preferred 4-digit PIN
 const SITE_PIN_KEY='img_golf_pin_v1'; // localStorage key for remembering auth
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
@@ -391,20 +391,20 @@ const BASE_COURSES={
 
 // ── PLAYERS ───────────────────────────────────────────────────────────────────
 const REAL_PLAYERS=[
-  {id:'p1',name:'Mark Siuta',handicapIndex:6.3,scoreDiffs:[11.541,7.678,3.815,5.747,6.712,3.815,5.747,2.849,2.849,10.576],priorScores:[{id:'prior_Mark_Siuta_Week4_Back',weekId:'2025-06-10',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,7,4,5,6,5,5,4],gross:46,diff9:11.541,isPrior:true},{id:'prior_Mark_Siuta_Week5_Front',weekId:'2025-06-17',courseId:'kimberton',tee:'White',nine:'front',holes:[4,5,5,5,5,5,5,5,3],gross:42,diff9:7.678,isPrior:true},{id:'prior_Mark_Siuta_Week6_Front',weekId:'2025-07-01',courseId:'kimberton',tee:'White',nine:'front',holes:[4,5,5,3,5,4,5,4,3],gross:38,diff9:3.815,isPrior:true},{id:'prior_Mark_Siuta_Week7_Back',weekId:'2025-07-15',courseId:'kimberton',tee:'White',nine:'back',holes:[5,5,4,4,3,5,4,6,4],gross:40,diff9:5.747,isPrior:true},{id:'prior_Mark_Siuta_Week8_Back',weekId:'2025-07-22',courseId:'kimberton',tee:'White',nine:'back',holes:[5,5,4,4,4,6,4,5,4],gross:41,diff9:6.712,isPrior:true},{id:'prior_Mark_Siuta_Week9_Back',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,4,4,3,5,4,5,4],gross:38,diff9:3.815,isPrior:true},{id:'prior_Mark_Siuta_Week10_Front',weekId:'2025-08-05',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,4,2,4,5,6,4,5],gross:40,diff9:5.747,isPrior:true},{id:'prior_Mark_Siuta_Week11_Front',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'front',holes:[4,5,4,3,5,4,5,4,3],gross:37,diff9:2.849,isPrior:true},{id:'prior_Mark_Siuta_Week12_Front',weekId:'2025-08-19',courseId:'kimberton',tee:'White',nine:'front',holes:[3,4,5,3,5,3,6,5,3],gross:37,diff9:2.849,isPrior:true},{id:'prior_Mark_Siuta_Week15_Back',weekId:'2025-09-09',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,4,5,4,6,4,7,5],gross:45,diff9:10.576,isPrior:true}]},
-  {id:'p2',name:'Peilei Cao',handicapIndex:17.0,scoreDiffs:[14.31,9.935,17.047,8.008,9.866,10.735,11.818,11.112,9.605,6.168],priorScores:[{id:'prior_Peilei_Cao_Week2_Front',weekId:'2025-05-27',courseId:'worcester',tee:'Ladies - Red',nine:'front',holes:[6,6,6,5,6,2,5,4,6],gross:46,diff9:14.31,isPrior:true},{id:'prior_Peilei_Cao_Week3_Front',weekId:'2025-06-03',courseId:'broad_run',tee:'Ladies - Red',nine:'front',holes:[6,6,6,5,4,4,5,4,6],gross:46,diff9:9.935,isPrior:true},{id:'prior_Peilei_Cao_Week4_Front',weekId:'2025-06-10',courseId:'white_clay_creek',tee:'Ladies - Red',nine:'front',holes:[8,4,8,4,5,5,5,9,4],gross:52,diff9:17.047,isPrior:true},{id:'prior_Peilei_Cao_Week5_Front',weekId:'2025-06-17',courseId:'spring_hollow',tee:'Ladies - Gold',nine:'front',holes:[5,4,4,4,5,6,4,5,5],gross:42,diff9:8.008,isPrior:true},{id:'prior_Peilei_Cao_Week6_Front',weekId:'2025-07-01',courseId:'applecross_-_ladies',tee:'Green',nine:'front',holes:[5,4,4,5,6,4,6,7,6],gross:47,diff9:9.866,isPrior:true},{id:'prior_Peilei_Cao_Week7_Front',weekId:'2025-07-15',courseId:'applecross_-_ladies',tee:'Green',nine:'front',holes:[5,6,5,5,6,3,6,6,6],gross:48,diff9:10.735,isPrior:true},{id:'prior_Peilei_Cao_Week8_Front',weekId:'2025-07-22',courseId:'broad_run',tee:'Ladies - Red',nine:'front',holes:[8,5,5,4,5,5,6,4,6],gross:48,diff9:11.818,isPrior:true},{id:'prior_Peilei_Cao_Week12_Front',weekId:'2025-08-19',courseId:'pinecrest_cc',tee:'Ladies - Red',nine:'front',holes:[5,3,6,5,5,6,5,5,6],gross:46,diff9:11.112,isPrior:true},{id:'prior_Peilei_Cao_Week13_Front',weekId:'2025-08-26',courseId:'riviera_maya',tee:'Ladies - Red',nine:'front',holes:[5,3,4,7,3,5,6,6,6],gross:45,diff9:9.605,isPrior:true},{id:'prior_Peilei_Cao_Week14_Front',weekId:'2025-09-02',courseId:'broad_run',tee:'Ladies - Red',nine:'front',holes:[7,6,5,3,4,4,6,3,4],gross:42,diff9:6.168,isPrior:true}]},
-  {id:'p3',name:'Kevin Schmitt',handicapIndex:19.6,scoreDiffs:[16.143,13.473,14.439,11.541,11.541,6.712,11.541,9.61,15.405,10.576],priorScores:[{id:'prior_Kevin_Schmitt_Week4_Front',weekId:'2025-06-10',courseId:'kschmitt',tee:'Custom',nine:'front',holes:[6,3,6,6,10,5,4,5,6],gross:51,diff9:16.143,isPrior:true},{id:'prior_Kevin_Schmitt_Week5_Front',weekId:'2025-06-17',courseId:'kimberton',tee:'White',nine:'front',holes:[6,8,5,4,5,4,7,6,3],gross:48,diff9:13.473,isPrior:true},{id:'prior_Kevin_Schmitt_Week7_Back',weekId:'2025-07-15',courseId:'kimberton',tee:'White',nine:'back',holes:[4,8,7,4,4,8,3,6,5],gross:49,diff9:14.439,isPrior:true},{id:'prior_Kevin_Schmitt_Week9_Back',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,5,5,4,5,3,7,6],gross:46,diff9:11.541,isPrior:true},{id:'prior_Kevin_Schmitt_Week10_Front',weekId:'2025-08-05',courseId:'kimberton',tee:'White',nine:'front',holes:[7,5,5,5,6,3,7,4,4],gross:46,diff9:11.541,isPrior:true},{id:'prior_Kevin_Schmitt_Week11_Front',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'front',holes:[5,4,4,4,4,4,7,5,4],gross:41,diff9:6.712,isPrior:true},{id:'prior_Kevin_Schmitt_Week12_Front',weekId:'2025-08-19',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,7,4,6,4,5,5,4],gross:46,diff9:11.541,isPrior:true},{id:'prior_Kevin_Schmitt_Week15_Back',weekId:'2025-09-09',courseId:'kimberton',tee:'White',nine:'back',holes:[7,6,5,5,4,5,3,5,4],gross:44,diff9:9.61,isPrior:true},{id:'prior_Kevin_Schmitt_Week16_Front',weekId:'2025-09-16',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,8,5,7,5,6,5,3],gross:50,diff9:15.405,isPrior:true},{id:'prior_Kevin_Schmitt_Week17_Back',weekId:'2025-09-23',courseId:'kimberton',tee:'White',nine:'back',holes:[6,6,4,4,4,5,3,7,6],gross:45,diff9:10.576,isPrior:true}]},
-  {id:'p4',name:'Sean McCausland',handicapIndex:29.4,scoreDiffs:[20.234,14.439,14.439,19.268,21.2,19.268,23.131,18.302,20.234,14.439],priorScores:[{id:'prior_Sean_McCausland_Week2_Front',weekId:'2025-05-27',courseId:'kimberton',tee:'White',nine:'front',holes:[5,6,5,4,7,6,10,8,4],gross:55,diff9:20.234,isPrior:true},{id:'prior_Sean_McCausland_Week4_Front',weekId:'2025-06-10',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,5,4,7,4,6,7,4],gross:49,diff9:14.439,isPrior:true},{id:'prior_Sean_McCausland_Week9_Front',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,5,4,7,5,7,6,4],gross:49,diff9:14.439,isPrior:true},{id:'prior_Sean_McCausland_Week10_Front',weekId:'2025-08-05',courseId:'kimberton',tee:'White',nine:'front',holes:[8,6,5,3,6,5,7,8,6],gross:54,diff9:19.268,isPrior:true},{id:'prior_Sean_McCausland_Week11_Back',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'back',holes:[8,7,6,5,6,7,4,6,7],gross:56,diff9:21.2,isPrior:true},{id:'prior_Sean_McCausland_Week12_Back',weekId:'2025-08-19',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,7,5,5,8,4,8,6],gross:54,diff9:19.268,isPrior:true},{id:'prior_Sean_McCausland_Week13_Back',weekId:'2025-08-26',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,7,6,5,8,5,9,6],gross:58,diff9:23.131,isPrior:true},{id:'prior_Sean_McCausland_Week15_Front',weekId:'2025-09-09',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,7,4,7,6,7,5,5],gross:53,diff9:18.302,isPrior:true},{id:'prior_Sean_McCausland_Week16_Front',weekId:'2025-09-16',courseId:'kimberton',tee:'White',nine:'front',holes:[7,7,8,4,7,5,7,6,4],gross:55,diff9:20.234,isPrior:true},{id:'prior_Sean_McCausland_Week17_Back',weekId:'2025-09-23',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,6,5,5,6,4,6,5],gross:49,diff9:14.439,isPrior:true}]},
-  {id:'p5',name:'Jun Oh Yoon',handicapIndex:24.4,scoreDiffs:[16.371,21.2,13.473,11.541,15.405,16.371,11.541,13.473,20.234,15.405],priorScores:[{id:'prior_Jun_Oh_Yoon_Week7_Front',weekId:'2025-07-15',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,8,5,5,3,6,7,5],gross:51,diff9:16.371,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week9_Front',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'front',holes:[6,7,8,5,6,5,6,7,6],gross:56,diff9:21.2,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week10_Front',weekId:'2025-08-05',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,6,5,6,6,5,7,2],gross:48,diff9:13.473,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week11_Back',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,7,5,4,5,4,6,4],gross:46,diff9:11.541,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week12_Back',weekId:'2025-08-19',courseId:'kimberton',tee:'White',nine:'back',holes:[6,5,7,5,6,6,3,7,5],gross:50,diff9:15.405,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week13_Back',weekId:'2025-08-26',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,5,7,4,6,5,8,5],gross:51,diff9:16.371,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week14_Front',weekId:'2025-09-02',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,6,3,7,4,5,6,3],gross:46,diff9:11.541,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week15_Front',weekId:'2025-09-09',courseId:'kimberton',tee:'White',nine:'front',holes:[7,6,6,4,5,3,7,6,4],gross:48,diff9:13.473,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week16_Front',weekId:'2025-09-16',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,7,5,6,6,8,6,5],gross:55,diff9:20.234,isPrior:true},{id:'prior_Jun_Oh_Yoon_Week17_Back',weekId:'2025-09-23',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,6,4,5,7,3,7,6],gross:50,diff9:15.405,isPrior:true}]},
-  {id:'p6',name:'Ian Kresnak',handicapIndex:4.3,scoreDiffs:[2.666,2.666,2.666,3.93,4.591,0.177,6.367,4.68,3.898,3.022],priorScores:[{id:'prior_Ian_Kresnak_Week1_Front',weekId:'2025-05-20',courseId:'custom_course',tee:'Blue',nine:'front',holes:[6,6,4,4,3,5,6,2,5],gross:41,diff9:3.93,isPrior:true},{id:'prior_Ian_Kresnak_Week5_Front',weekId:'2025-06-17',courseId:'westover',tee:'Blue',nine:'front',holes:[4,6,5,3,6,4,5,3,4],gross:40,diff9:4.591,isPrior:true},{id:'prior_Ian_Kresnak_Week6_Back',weekId:'2025-07-01',courseId:'westover',tee:'Blue',nine:'back',holes:[4,4,6,2,3,3,5,3,5],gross:35,diff9:0.177,isPrior:true},{id:'prior_Ian_Kresnak_Week7_Front',weekId:'2025-07-15',courseId:'jeffersonville',tee:'Green',nine:'front',holes:[4,6,6,3,4,5,4,5,5],gross:42,diff9:6.367,isPrior:true},{id:'prior_Ian_Kresnak_Week8_Back',weekId:'2025-07-22',courseId:'jeffersonville',tee:'Green',nine:'back',holes:[6,4,4,4,4,4,4,4,6],gross:40,diff9:4.68,isPrior:true},{id:'prior_Ian_Kresnak_Week10_Front',weekId:'2025-08-05',courseId:'red_hawk_ridge',tee:'Gold',nine:'front',holes:[5,3,2,6,3,4,6,5,5],gross:39,diff9:3.898,isPrior:true},{id:'prior_Ian_Kresnak_Week11_Back',weekId:'2025-08-12',courseId:'red_hawk_ridge',tee:'Gold',nine:'back',holes:[6,3,3,6,3,4,6,3,4],gross:38,diff9:3.022,isPrior:true}]},
-  {id:'p7',name:'Brendan Gifford',handicapIndex:32.2,scoreDiffs:[16.716,16.716,16.716,21.2,18.302,17.336,26.029,20.234,17.336,16.371],priorScores:[{id:'prior_Brendan_Gifford_Week2_Back',weekId:'2025-05-27',courseId:'kimberton',tee:'White',nine:'back',holes:[7,5,6,7,5,9,3,7,7],gross:56,diff9:21.2,isPrior:true},{id:'prior_Brendan_Gifford_Week3_Back',weekId:'2025-06-03',courseId:'kimberton',tee:'White',nine:'back',holes:[7,6,7,6,5,5,4,6,7],gross:53,diff9:18.302,isPrior:true},{id:'prior_Brendan_Gifford_Week4_Back',weekId:'2025-06-10',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,5,5,5,7,4,7,7],gross:52,diff9:17.336,isPrior:true},{id:'prior_Brendan_Gifford_Week7_Back',weekId:'2025-07-15',courseId:'kimberton',tee:'White',nine:'back',holes:[6,8,7,8,5,7,5,8,7],gross:61,diff9:26.029,isPrior:true},{id:'prior_Brendan_Gifford_Week9_Back',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'back',holes:[6,7,6,8,4,8,4,6,6],gross:55,diff9:20.234,isPrior:true},{id:'prior_Brendan_Gifford_Week11_Front',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,5,6,6,4,7,7,5],gross:52,diff9:17.336,isPrior:true},{id:'prior_Brendan_Gifford_Week12_Front',weekId:'2025-08-19',courseId:'kimberton',tee:'White',nine:'front',holes:[5,6,8,3,7,3,8,7,4],gross:51,diff9:16.371,isPrior:true}]},
+  {id:'p1',name:'Mark Siuta',handicapIndex:6.3,scoreDiffs:[11.541,7.678,3.815,5.747,6.712,3.815,5.747,2.849,2.849,10.576],priorScores:[{id:'prior_Mark_Siuta_2025-06-10_Back',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,7,4,5,6,5,5,4],gross:46,gvp:10,nvp:6,diff9:11.541,isPrior:true},{id:'prior_Mark_Siuta_2025-06-17_Front',weekId:'2025-06-17',dateLabel:'Jun 17, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[4,5,5,5,5,5,5,5,3],gross:42,gvp:8,nvp:4,diff9:7.678,isPrior:true},{id:'prior_Mark_Siuta_2025-07-01_Front',weekId:'2025-07-01',dateLabel:'Jul 1, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[4,5,5,3,5,4,5,4,3],gross:38,gvp:4,nvp:0,diff9:3.815,isPrior:true},{id:'prior_Mark_Siuta_2025-07-15_Back',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,5,4,4,3,5,4,6,4],gross:40,gvp:4,nvp:0,diff9:5.747,isPrior:true},{id:'prior_Mark_Siuta_2025-07-22_Back',weekId:'2025-07-22',dateLabel:'Jul 22, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,5,4,4,4,6,4,5,4],gross:41,gvp:5,nvp:1,diff9:6.712,isPrior:true},{id:'prior_Mark_Siuta_2025-07-29_Back',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,4,4,3,5,4,5,4],gross:38,gvp:2,nvp:-2,diff9:3.815,isPrior:true},{id:'prior_Mark_Siuta_2025-08-05_Front',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,4,2,4,5,6,4,5],gross:40,gvp:6,nvp:2,diff9:5.747,isPrior:true},{id:'prior_Mark_Siuta_2025-08-12_Front',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[4,5,4,3,5,4,5,4,3],gross:37,gvp:3,nvp:-1,diff9:2.849,isPrior:true},{id:'prior_Mark_Siuta_2025-08-19_Front',weekId:'2025-08-19',dateLabel:'Aug 19, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[3,4,5,3,5,3,6,5,3],gross:37,gvp:3,nvp:0,diff9:2.849,isPrior:true},{id:'prior_Mark_Siuta_2025-09-09_Back',weekId:'2025-09-09',dateLabel:'Sep 9, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,4,5,4,6,4,7,5],gross:45,gvp:9,nvp:6,diff9:10.576,isPrior:true}]},
+  {id:'p2',name:'Peilei Cao',handicapIndex:17.0,scoreDiffs:[14.31,9.935,17.047,8.008,9.866,10.735,11.818,11.112,9.605,6.168],priorScores:[{id:'prior_Peilei_Cao_2025-05-27_Front',weekId:'2025-05-27',dateLabel:'May 27, 2025',courseId:'worcester',tee:'Ladies - Red',nine:'front',holes:[6,6,6,5,6,2,5,4,6],gross:46,gvp:11,nvp:3,diff9:14.31,isPrior:true},{id:'prior_Peilei_Cao_2025-06-03_Front',weekId:'2025-06-03',dateLabel:'Jun 3, 2025',courseId:'broad_run',tee:'Ladies - Red',nine:'front',holes:[6,6,6,5,4,4,5,4,6],gross:46,gvp:10,nvp:0,diff9:9.935,isPrior:true},{id:'prior_Peilei_Cao_2025-06-10_Front',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'white_clay_creek',tee:'Ladies - Red',nine:'front',holes:[8,4,8,4,5,5,5,9,4],gross:52,gvp:16,nvp:7,diff9:17.047,isPrior:true},{id:'prior_Peilei_Cao_2025-06-17_Front',weekId:'2025-06-17',dateLabel:'Jun 17, 2025',courseId:'spring_hollow',tee:'Ladies - Gold',nine:'front',holes:[5,4,4,4,5,6,4,5,5],gross:42,gvp:7,nvp:-2,diff9:8.008,isPrior:true},{id:'prior_Peilei_Cao_2025-07-01_Front',weekId:'2025-07-01',dateLabel:'Jul 1, 2025',courseId:'applecross_-_ladies',tee:'Green',nine:'front',holes:[5,4,4,5,6,4,6,7,6],gross:47,gvp:12,nvp:2,diff9:9.866,isPrior:true},{id:'prior_Peilei_Cao_2025-07-15_Front',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'applecross_-_ladies',tee:'Green',nine:'front',holes:[5,6,5,5,6,3,6,6,6],gross:48,gvp:13,nvp:3,diff9:10.735,isPrior:true},{id:'prior_Peilei_Cao_2025-07-22_Front',weekId:'2025-07-22',dateLabel:'Jul 22, 2025',courseId:'broad_run',tee:'Ladies - Red',nine:'front',holes:[8,5,5,4,5,5,6,4,6],gross:48,gvp:12,nvp:3,diff9:11.818,isPrior:true},{id:'prior_Peilei_Cao_2025-08-19_Front',weekId:'2025-08-19',dateLabel:'Aug 19, 2025',courseId:'pinecrest_cc',tee:'Ladies - Red',nine:'front',holes:[5,3,6,5,5,6,5,5,6],gross:46,gvp:11,nvp:1,diff9:11.112,isPrior:true},{id:'prior_Peilei_Cao_2025-08-26_Front',weekId:'2025-08-26',dateLabel:'Aug 26, 2025',courseId:'riviera_maya',tee:'Ladies - Red',nine:'front',holes:[5,3,4,7,3,5,6,6,6],gross:45,gvp:9,nvp:-1,diff9:9.605,isPrior:true},{id:'prior_Peilei_Cao_2025-09-02_Front',weekId:'2025-09-02',dateLabel:'Sep 2, 2025',courseId:'broad_run',tee:'Ladies - Red',nine:'front',holes:[7,6,5,3,4,4,6,3,4],gross:42,gvp:6,nvp:-4,diff9:6.168,isPrior:true}]},
+  {id:'p3',name:'Kevin Schmitt',handicapIndex:19.6,scoreDiffs:[16.143,13.473,14.439,11.541,11.541,6.712,11.541,9.61,15.405,10.576],priorScores:[{id:'prior_Kevin_Schmitt_2025-06-10_Front',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kschmitt',tee:'Custom',nine:'front',holes:[6,3,6,6,10,5,4,5,6],gross:51,gvp:15,nvp:5,diff9:16.143,isPrior:true},{id:'prior_Kevin_Schmitt_2025-06-17_Front',weekId:'2025-06-17',dateLabel:'Jun 17, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,8,5,4,5,4,7,6,3],gross:48,gvp:14,nvp:4,diff9:13.473,isPrior:true},{id:'prior_Kevin_Schmitt_2025-07-15_Back',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,8,7,4,4,8,3,6,5],gross:49,gvp:13,nvp:4,diff9:14.439,isPrior:true},{id:'prior_Kevin_Schmitt_2025-07-29_Back',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,5,5,4,5,3,7,6],gross:46,gvp:10,nvp:0,diff9:11.541,isPrior:true},{id:'prior_Kevin_Schmitt_2025-08-05_Front',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[7,5,5,5,6,3,7,4,4],gross:46,gvp:12,nvp:1,diff9:11.541,isPrior:true},{id:'prior_Kevin_Schmitt_2025-08-12_Front',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,4,4,4,4,4,7,5,4],gross:41,gvp:7,nvp:-4,diff9:6.712,isPrior:true},{id:'prior_Kevin_Schmitt_2025-08-19_Front',weekId:'2025-08-19',dateLabel:'Aug 19, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,7,4,6,4,5,5,4],gross:46,gvp:12,nvp:2,diff9:11.541,isPrior:true},{id:'prior_Kevin_Schmitt_2025-09-09_Back',weekId:'2025-09-09',dateLabel:'Sep 9, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[7,6,5,5,4,5,3,5,4],gross:44,gvp:8,nvp:-2,diff9:9.61,isPrior:true},{id:'prior_Kevin_Schmitt_2025-09-16_Front',weekId:'2025-09-16',dateLabel:'Sep 16, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,8,5,7,5,6,5,3],gross:50,gvp:16,nvp:5,diff9:15.405,isPrior:true},{id:'prior_Kevin_Schmitt_2025-09-23_Back',weekId:'2025-09-23',dateLabel:'Sep 23, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,6,4,4,4,5,3,7,6],gross:45,gvp:9,nvp:-1,diff9:10.576,isPrior:true}]},
+  {id:'p4',name:'Sean McCausland',handicapIndex:29.4,scoreDiffs:[20.234,14.439,14.439,19.268,21.2,19.268,23.131,18.302,20.234,14.439],priorScores:[{id:'prior_Sean_McCausland_2025-05-27_Front',weekId:'2025-05-27',dateLabel:'May 27, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,6,5,4,7,6,10,8,4],gross:55,gvp:21,nvp:5,diff9:20.234,isPrior:true},{id:'prior_Sean_McCausland_2025-06-10_Front',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,5,4,7,4,6,7,4],gross:49,gvp:15,nvp:-1,diff9:14.439,isPrior:true},{id:'prior_Sean_McCausland_2025-07-29_Front',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,5,4,7,5,7,6,4],gross:49,gvp:15,nvp:0,diff9:14.439,isPrior:true},{id:'prior_Sean_McCausland_2025-08-05_Front',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[8,6,5,3,6,5,7,8,6],gross:54,gvp:20,nvp:5,diff9:19.268,isPrior:true},{id:'prior_Sean_McCausland_2025-08-12_Back',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[8,7,6,5,6,7,4,6,7],gross:56,gvp:20,nvp:5,diff9:21.2,isPrior:true},{id:'prior_Sean_McCausland_2025-08-19_Back',weekId:'2025-08-19',dateLabel:'Aug 19, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,7,5,5,8,4,8,6],gross:54,gvp:18,nvp:3,diff9:19.268,isPrior:true},{id:'prior_Sean_McCausland_2025-08-26_Back',weekId:'2025-08-26',dateLabel:'Aug 26, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,7,6,5,8,5,9,6],gross:58,gvp:22,nvp:7,diff9:23.131,isPrior:true},{id:'prior_Sean_McCausland_2025-09-09_Front',weekId:'2025-09-09',dateLabel:'Sep 9, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,7,4,7,6,7,5,5],gross:53,gvp:19,nvp:3,diff9:18.302,isPrior:true},{id:'prior_Sean_McCausland_2025-09-16_Front',weekId:'2025-09-16',dateLabel:'Sep 16, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[7,7,8,4,7,5,7,6,4],gross:55,gvp:21,nvp:5,diff9:20.234,isPrior:true},{id:'prior_Sean_McCausland_2025-09-23_Back',weekId:'2025-09-23',dateLabel:'Sep 23, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,6,5,5,6,4,6,5],gross:49,gvp:13,nvp:-2,diff9:14.439,isPrior:true}]},
+  {id:'p5',name:'Jun Oh Yoon',handicapIndex:24.4,scoreDiffs:[16.371,21.2,13.473,11.541,15.405,16.371,11.541,13.473,20.234,15.405],priorScores:[{id:'prior_Jun_Oh_Yoon_2025-07-15_Front',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,8,5,5,3,6,7,5],gross:51,gvp:17,nvp:5,diff9:16.371,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-07-29_Front',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,7,8,5,6,5,6,7,6],gross:56,gvp:22,nvp:10,diff9:21.2,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-08-05_Front',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,6,5,6,6,5,7,2],gross:48,gvp:14,nvp:2,diff9:13.473,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-08-12_Back',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,7,5,4,5,4,6,4],gross:46,gvp:10,nvp:-1,diff9:11.541,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-08-19_Back',weekId:'2025-08-19',dateLabel:'Aug 19, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,5,7,5,6,6,3,7,5],gross:50,gvp:14,nvp:3,diff9:15.405,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-08-26_Back',weekId:'2025-08-26',dateLabel:'Aug 26, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,5,7,4,6,5,8,5],gross:51,gvp:15,nvp:4,diff9:16.371,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-09-02_Front',weekId:'2025-09-02',dateLabel:'Sep 2, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,6,3,7,4,5,6,3],gross:46,gvp:12,nvp:0,diff9:11.541,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-09-09_Front',weekId:'2025-09-09',dateLabel:'Sep 9, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[7,6,6,4,5,3,7,6,4],gross:48,gvp:14,nvp:1,diff9:13.473,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-09-16_Front',weekId:'2025-09-16',dateLabel:'Sep 16, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,7,5,6,6,8,6,5],gross:55,gvp:21,nvp:8,diff9:20.234,isPrior:true},{id:'prior_Jun_Oh_Yoon_2025-09-23_Back',weekId:'2025-09-23',dateLabel:'Sep 23, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,6,4,5,7,3,7,6],gross:50,gvp:14,nvp:2,diff9:15.405,isPrior:true}]},
+  {id:'p6',name:'Ian Kresnak',handicapIndex:4.3,scoreDiffs:[2.666,2.666,2.666,3.93,4.591,0.177,6.367,4.68,3.898,3.022],priorScores:[{id:'prior_Ian_Kresnak_2025-05-20_Front',weekId:'2025-05-20',dateLabel:'May 20, 2025',courseId:'custom_course',tee:'Blue',nine:'front',holes:[6,6,4,4,3,5,6,2,5],gross:41,gvp:5,nvp:3,diff9:3.93,isPrior:true},{id:'prior_Ian_Kresnak_2025-06-17_Front',weekId:'2025-06-17',dateLabel:'Jun 17, 2025',courseId:'westover',tee:'Blue',nine:'front',holes:[4,6,5,3,6,4,5,3,4],gross:40,gvp:3,nvp:0,diff9:4.591,isPrior:true},{id:'prior_Ian_Kresnak_2025-07-01_Back',weekId:'2025-07-01',dateLabel:'Jul 1, 2025',courseId:'westover',tee:'Blue',nine:'back',holes:[4,4,6,2,3,3,5,3,5],gross:35,gvp:2,nvp:0,diff9:0.177,isPrior:true},{id:'prior_Ian_Kresnak_2025-07-15_Front',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'jeffersonville',tee:'Green',nine:'front',holes:[4,6,6,3,4,5,4,5,5],gross:42,gvp:7,nvp:5,diff9:6.367,isPrior:true},{id:'prior_Ian_Kresnak_2025-07-22_Back',weekId:'2025-07-22',dateLabel:'Jul 22, 2025',courseId:'jeffersonville',tee:'Green',nine:'back',holes:[6,4,4,4,4,4,4,4,6],gross:40,gvp:5,nvp:3,diff9:4.68,isPrior:true},{id:'prior_Ian_Kresnak_2025-08-05_Front',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'red_hawk_ridge',tee:'Gold',nine:'front',holes:[5,3,2,6,3,4,6,5,5],gross:39,gvp:3,nvp:1,diff9:3.898,isPrior:true},{id:'prior_Ian_Kresnak_2025-08-12_Back',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'red_hawk_ridge',tee:'Gold',nine:'back',holes:[6,3,3,6,3,4,6,3,4],gross:38,gvp:2,nvp:0,diff9:3.022,isPrior:true}]},
+  {id:'p7',name:'Brendan Gifford',handicapIndex:32.2,scoreDiffs:[16.716,16.716,16.716,21.2,18.302,17.336,26.029,20.234,17.336,16.371],priorScores:[{id:'prior_Brendan_Gifford_2025-05-27_Back',weekId:'2025-05-27',dateLabel:'May 27, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[7,5,6,7,5,9,3,7,7],gross:56,gvp:20,nvp:4,diff9:21.2,isPrior:true},{id:'prior_Brendan_Gifford_2025-06-03_Back',weekId:'2025-06-03',dateLabel:'Jun 3, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[7,6,7,6,5,5,4,6,7],gross:53,gvp:17,nvp:1,diff9:18.302,isPrior:true},{id:'prior_Brendan_Gifford_2025-06-10_Back',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,5,5,5,7,4,7,7],gross:52,gvp:16,nvp:0,diff9:17.336,isPrior:true},{id:'prior_Brendan_Gifford_2025-07-15_Back',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,8,7,8,5,7,5,8,7],gross:61,gvp:25,nvp:9,diff9:26.029,isPrior:true},{id:'prior_Brendan_Gifford_2025-07-29_Back',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,7,6,8,4,8,4,6,6],gross:55,gvp:19,nvp:3,diff9:20.234,isPrior:true},{id:'prior_Brendan_Gifford_2025-08-12_Front',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,5,6,6,4,7,7,5],gross:52,gvp:18,nvp:2,diff9:17.336,isPrior:true},{id:'prior_Brendan_Gifford_2025-08-19_Front',weekId:'2025-08-19',dateLabel:'Aug 19, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,6,8,3,7,3,8,7,4],gross:51,gvp:17,nvp:1,diff9:16.371,isPrior:true}]},
   {id:'p8',name:'Doug Burgwin',handicapIndex:14.0,scoreDiffs:[7.292,7.292,7.292,7.292,7.292],priorScores:[]},
-  {id:'p9',name:'Chris Baniewicz',handicapIndex:14.4,scoreDiffs:[11.541,10.576,8.644,13.473,8.736,7.678,10.576,6.712,8.644,15.405],priorScores:[{id:'prior_Chris_Baniewicz_Week4_Back',weekId:'2025-06-10',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,5,4,5,6,5,6,5],gross:46,diff9:11.541,isPrior:true},{id:'prior_Chris_Baniewicz_Week5_Front',weekId:'2025-06-17',courseId:'kimberton',tee:'White',nine:'front',holes:[4,6,5,4,5,5,6,6,4],gross:45,diff9:10.576,isPrior:true},{id:'prior_Chris_Baniewicz_Week6_Back',weekId:'2025-07-01',courseId:'kimberton',tee:'White',nine:'back',holes:[5,4,6,4,4,6,4,6,4],gross:43,diff9:8.644,isPrior:true},{id:'prior_Chris_Baniewicz_Week7_Back',weekId:'2025-07-15',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,6,5,6,6,4,6,5],gross:48,diff9:13.473,isPrior:true},{id:'prior_Chris_Baniewicz_Week8_Back',weekId:'2025-07-22',courseId:'pickering',tee:'White',nine:'back',holes:[4,5,5,5,7,4,5,5,5],gross:45,diff9:8.736,isPrior:true},{id:'prior_Chris_Baniewicz_Week9_Back',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'back',holes:[5,5,5,6,4,5,3,5,4],gross:42,diff9:7.678,isPrior:true},{id:'prior_Chris_Baniewicz_Week11_Back',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,5,5,6,6,3,6,5],gross:45,diff9:10.576,isPrior:true},{id:'prior_Chris_Baniewicz_Week15_Back',weekId:'2025-09-09',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,4,5,4,6,3,6,4],gross:41,diff9:6.712,isPrior:true},{id:'prior_Chris_Baniewicz_Week16_Back',weekId:'2025-09-16',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,4,5,4,5,4,6,6],gross:43,diff9:8.644,isPrior:true},{id:'prior_Chris_Baniewicz_Week17_Back',weekId:'2025-09-23',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,6,5,5,6,4,6,6],gross:50,diff9:15.405,isPrior:true}]},
-  {id:'p10',name:'Sean Moran',handicapIndex:18.9,scoreDiffs:[9.661,9.661,9.661,9.661,11.541,15.405,12.507,11.541,10.576,15.405],priorScores:[{id:'prior_Sean_Moran_Week1_Front',weekId:'2025-05-20',courseId:'kimberton',tee:'White',nine:'front',holes:[4,6,7,5,5,4,8,4,3],gross:46,diff9:11.541,isPrior:true},{id:'prior_Sean_Moran_Week3_Back',weekId:'2025-06-03',courseId:'kimberton',tee:'White',nine:'back',holes:[7,6,5,5,5,6,4,7,5],gross:50,diff9:15.405,isPrior:true},{id:'prior_Sean_Moran_Week10_Front',weekId:'2025-08-05',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,6,4,5,6,5,5,4],gross:47,diff9:12.507,isPrior:true},{id:'prior_Sean_Moran_Week11_Front',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,5,4,4,5,7,5,4],gross:46,diff9:11.541,isPrior:true},{id:'prior_Sean_Moran_Week15_Back',weekId:'2025-09-09',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,5,4,4,7,4,6,5],gross:45,diff9:10.576,isPrior:true},{id:'prior_Sean_Moran_Week16_Front',weekId:'2025-09-16',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,7,3,5,4,9,6,4],gross:50,diff9:15.405,isPrior:true}]},
-  {id:'p11',name:'Cali Strachan',handicapIndex:25.1,scoreDiffs:[13.073,13.073,13.073,13.073,13.073,13.845,18.935,17.917,13.845,17.917],priorScores:[{id:'prior_Cali_Strachan_Week4_Back',weekId:'2025-06-10',courseId:'kimberton',tee:'Ladies - Red',nine:'back',holes:[5,5,5,4,4,6,5,7,6],gross:47,diff9:13.845,isPrior:true},{id:'prior_Cali_Strachan_Week5_Front',weekId:'2025-06-17',courseId:'kimberton',tee:'Ladies - Red',nine:'front',holes:[6,6,7,5,5,4,7,7,5],gross:52,diff9:18.935,isPrior:true},{id:'prior_Cali_Strachan_Week6_Back',weekId:'2025-07-01',courseId:'kimberton',tee:'Ladies - Red',nine:'back',holes:[5,6,6,6,5,6,5,7,5],gross:51,diff9:17.917,isPrior:true},{id:'prior_Cali_Strachan_Week8_Front',weekId:'2025-07-22',courseId:'kimberton',tee:'Ladies - Red',nine:'front',holes:[4,6,6,6,6,4,6,5,4],gross:47,diff9:13.845,isPrior:true},{id:'prior_Cali_Strachan_Week10_Back',weekId:'2025-08-05',courseId:'kimberton',tee:'Ladies - Red',nine:'back',holes:[6,6,6,6,5,7,4,6,5],gross:51,diff9:17.917,isPrior:true}]},
+  {id:'p9',name:'Chris Baniewicz',handicapIndex:14.4,scoreDiffs:[11.541,10.576,8.644,13.473,8.736,7.678,10.576,6.712,8.644,15.405],priorScores:[{id:'prior_Chris_Baniewicz_2025-06-10_Back',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,5,4,5,6,5,6,5],gross:46,gvp:10,nvp:3,diff9:11.541,isPrior:true},{id:'prior_Chris_Baniewicz_2025-06-17_Front',weekId:'2025-06-17',dateLabel:'Jun 17, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[4,6,5,4,5,5,6,6,4],gross:45,gvp:11,nvp:4,diff9:10.576,isPrior:true},{id:'prior_Chris_Baniewicz_2025-07-01_Back',weekId:'2025-07-01',dateLabel:'Jul 1, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,4,6,4,4,6,4,6,4],gross:43,gvp:7,nvp:0,diff9:8.644,isPrior:true},{id:'prior_Chris_Baniewicz_2025-07-15_Back',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,6,5,6,6,4,6,5],gross:48,gvp:12,nvp:6,diff9:13.473,isPrior:true},{id:'prior_Chris_Baniewicz_2025-07-22_Back',weekId:'2025-07-22',dateLabel:'Jul 22, 2025',courseId:'pickering',tee:'White',nine:'back',holes:[4,5,5,5,7,4,5,5,5],gross:45,gvp:9,nvp:1,diff9:8.736,isPrior:true},{id:'prior_Chris_Baniewicz_2025-07-29_Back',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,5,5,6,4,5,3,5,4],gross:42,gvp:6,nvp:0,diff9:7.678,isPrior:true},{id:'prior_Chris_Baniewicz_2025-08-12_Back',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,5,5,6,6,3,6,5],gross:45,gvp:9,nvp:3,diff9:10.576,isPrior:true},{id:'prior_Chris_Baniewicz_2025-09-09_Back',weekId:'2025-09-09',dateLabel:'Sep 9, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,4,5,4,6,3,6,4],gross:41,gvp:5,nvp:-2,diff9:6.712,isPrior:true},{id:'prior_Chris_Baniewicz_2025-09-16_Back',weekId:'2025-09-16',dateLabel:'Sep 16, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,5,4,5,4,5,4,6,6],gross:43,gvp:7,nvp:0,diff9:8.644,isPrior:true},{id:'prior_Chris_Baniewicz_2025-09-23_Back',weekId:'2025-09-23',dateLabel:'Sep 23, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,7,6,5,5,6,4,6,6],gross:50,gvp:14,nvp:7,diff9:15.405,isPrior:true}]},
+  {id:'p10',name:'Sean Moran',handicapIndex:18.9,scoreDiffs:[9.661,9.661,9.661,9.661,11.541,15.405,12.507,11.541,10.576,15.405],priorScores:[{id:'prior_Sean_Moran_2025-05-20_Front',weekId:'2025-05-20',dateLabel:'May 20, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[4,6,7,5,5,4,8,4,3],gross:46,gvp:12,nvp:2,diff9:11.541,isPrior:true},{id:'prior_Sean_Moran_2025-06-03_Back',weekId:'2025-06-03',dateLabel:'Jun 3, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[7,6,5,5,5,6,4,7,5],gross:50,gvp:14,nvp:5,diff9:15.405,isPrior:true},{id:'prior_Sean_Moran_2025-08-05_Front',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,6,4,5,6,5,5,4],gross:47,gvp:13,nvp:3,diff9:12.507,isPrior:true},{id:'prior_Sean_Moran_2025-08-12_Front',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,5,4,4,5,7,5,4],gross:46,gvp:12,nvp:2,diff9:11.541,isPrior:true},{id:'prior_Sean_Moran_2025-09-09_Back',weekId:'2025-09-09',dateLabel:'Sep 9, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,5,4,4,7,4,6,5],gross:45,gvp:9,nvp:0,diff9:10.576,isPrior:true},{id:'prior_Sean_Moran_2025-09-16_Front',weekId:'2025-09-16',dateLabel:'Sep 16, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,7,7,3,5,4,9,6,4],gross:50,gvp:16,nvp:6,diff9:15.405,isPrior:true}]},
+  {id:'p11',name:'Cali Strachan',handicapIndex:25.1,scoreDiffs:[13.073,13.073,13.073,13.073,13.073,13.845,18.935,17.917,13.845,17.917],priorScores:[{id:'prior_Cali_Strachan_2025-06-10_Back',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kimberton',tee:'Ladies - Red',nine:'back',holes:[5,5,5,4,4,6,5,7,6],gross:47,gvp:10,nvp:-3,diff9:13.845,isPrior:true},{id:'prior_Cali_Strachan_2025-06-17_Front',weekId:'2025-06-17',dateLabel:'Jun 17, 2025',courseId:'kimberton',tee:'Ladies - Red',nine:'front',holes:[6,6,7,5,5,4,7,7,5],gross:52,gvp:18,nvp:5,diff9:18.935,isPrior:true},{id:'prior_Cali_Strachan_2025-07-01_Back',weekId:'2025-07-01',dateLabel:'Jul 1, 2025',courseId:'kimberton',tee:'Ladies - Red',nine:'back',holes:[5,6,6,6,5,6,5,7,5],gross:51,gvp:15,nvp:3,diff9:17.917,isPrior:true},{id:'prior_Cali_Strachan_2025-07-22_Front',weekId:'2025-07-22',dateLabel:'Jul 22, 2025',courseId:'kimberton',tee:'Ladies - Red',nine:'front',holes:[4,6,6,6,6,4,6,5,4],gross:47,gvp:13,nvp:0,diff9:13.845,isPrior:true},{id:'prior_Cali_Strachan_2025-08-05_Back',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'kimberton',tee:'Ladies - Red',nine:'back',holes:[6,6,6,6,5,7,4,6,5],gross:51,gvp:15,nvp:3,diff9:17.917,isPrior:true}]},
   {id:'p12',name:'John Kraynak',handicapIndex:25.2,scoreDiffs:[13.125,13.125,13.125,13.125,13.125],priorScores:[]},
   {id:'p13',name:'Brian Scott',handicapIndex:28.9,scoreDiffs:[15.052,15.052,15.052,15.052,15.052],priorScores:[]},
-  {id:'p14',name:'Elbridge Barnard',handicapIndex:23.7,scoreDiffs:[11.578,11.578,11.578,11.578,17.336,19.268,26.029,15.405,26.994,19.268],priorScores:[{id:'prior_Elbridge_Barnard_Week1_Back',weekId:'2025-05-20',courseId:'kimberton',tee:'White',nine:'back',holes:[6,6,6,6,5,7,5,6,5],gross:52,diff9:17.336,isPrior:true},{id:'prior_Elbridge_Barnard_Week2_Back',weekId:'2025-05-27',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,8,6,5,5,5,6,8],gross:54,diff9:19.268,isPrior:true},{id:'prior_Elbridge_Barnard_Week3_Front',weekId:'2025-06-03',courseId:'kimberton',tee:'White',nine:'front',holes:[7,7,7,6,7,6,8,7,6],gross:61,diff9:26.029,isPrior:true},{id:'prior_Elbridge_Barnard_Week7_Back',weekId:'2025-07-15',courseId:'kimberton',tee:'White',nine:'back',holes:[6,8,6,5,5,5,4,6,5],gross:50,diff9:15.405,isPrior:true},{id:'prior_Elbridge_Barnard_Week10_Back',weekId:'2025-08-05',courseId:'kimberton',tee:'White',nine:'back',holes:[6,7,7,7,6,8,6,8,7],gross:62,diff9:26.994,isPrior:true},{id:'prior_Elbridge_Barnard_Week11_Back',weekId:'2025-08-12',courseId:'kimberton',tee:'White',nine:'back',holes:[6,7,5,8,5,6,4,7,6],gross:54,diff9:19.268,isPrior:true}]},
+  {id:'p14',name:'Elbridge Barnard',handicapIndex:23.7,scoreDiffs:[11.578,11.578,11.578,11.578,17.336,19.268,26.029,15.405,26.994,19.268],priorScores:[{id:'prior_Elbridge_Barnard_2025-05-20_Back',weekId:'2025-05-20',dateLabel:'May 20, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,6,6,6,5,7,5,6,5],gross:52,gvp:16,nvp:5,diff9:17.336,isPrior:true},{id:'prior_Elbridge_Barnard_2025-05-27_Back',weekId:'2025-05-27',dateLabel:'May 27, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,6,8,6,5,5,5,6,8],gross:54,gvp:18,nvp:7,diff9:19.268,isPrior:true},{id:'prior_Elbridge_Barnard_2025-06-03_Front',weekId:'2025-06-03',dateLabel:'Jun 3, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[7,7,7,6,7,6,8,7,6],gross:61,gvp:27,nvp:15,diff9:26.029,isPrior:true},{id:'prior_Elbridge_Barnard_2025-07-15_Back',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,8,6,5,5,5,4,6,5],gross:50,gvp:14,nvp:3,diff9:15.405,isPrior:true},{id:'prior_Elbridge_Barnard_2025-08-05_Back',weekId:'2025-08-05',dateLabel:'Aug 5, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,7,7,7,6,8,6,8,7],gross:62,gvp:26,nvp:15,diff9:26.994,isPrior:true},{id:'prior_Elbridge_Barnard_2025-08-12_Back',weekId:'2025-08-12',dateLabel:'Aug 12, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[6,7,5,8,5,6,4,7,6],gross:54,gvp:18,nvp:7,diff9:19.268,isPrior:true}]},
   {id:'p15',name:'Eric Seacrist',handicapIndex:20.9,scoreDiffs:[10.885,10.885,10.885,10.885,10.885],priorScores:[]},
   {id:'p16',name:"David O'Such",handicapIndex:13.0,scoreDiffs:[6.771,6.771,6.771,6.771,6.771],priorScores:[]},
   {id:'p17',name:'Bill Coleman',handicapIndex:29.2,scoreDiffs:[15.208,15.208,15.208,15.208,15.208],priorScores:[]},
@@ -412,9 +412,9 @@ const REAL_PLAYERS=[
   {id:'p19',name:'TJ Garvin',handicapIndex:19.0,scoreDiffs:[9.896,9.896,9.896,9.896,9.896],priorScores:[]},
   {id:'p20',name:'Cameron Dennis',handicapIndex:5.0,scoreDiffs:[2.604,2.604,2.604,2.604,2.604],priorScores:[]},
   {id:'p21',name:'Dave Dewees',handicapIndex:35.0,scoreDiffs:[18.229,18.229,18.229,18.229,18.229],priorScores:[]},
-  {id:'p22',name:'Conor Ryan',handicapIndex:17.9,scoreDiffs:[9.323,9.323,9.323,9.323,9.323,14.439,15.405,15.405,16.371,11.541],priorScores:[{id:'prior_Conor_Ryan_Week1_Front',weekId:'2025-05-20',courseId:'kimberton',tee:'White',nine:'front',holes:[4,7,8,3,5,5,7,6,4],gross:49,diff9:14.439,isPrior:true},{id:'prior_Conor_Ryan_Week2_Front',weekId:'2025-05-27',courseId:'kimberton',tee:'White',nine:'front',holes:[6,4,6,5,4,6,7,6,6],gross:50,diff9:15.405,isPrior:true},{id:'prior_Conor_Ryan_Week3_Front',weekId:'2025-06-03',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,7,3,8,4,9,6,3],gross:50,diff9:15.405,isPrior:true},{id:'prior_Conor_Ryan_Week4_Back',weekId:'2025-06-10',courseId:'kimberton',tee:'White',nine:'back',holes:[7,7,6,5,5,6,5,7,3],gross:51,diff9:16.371,isPrior:true},{id:'prior_Conor_Ryan_Week9_Back',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,3,4,6,8,5,5,5],gross:46,diff9:11.541,isPrior:true}]},
+  {id:'p22',name:'Conor Ryan',handicapIndex:17.9,scoreDiffs:[9.323,9.323,9.323,9.323,9.323,14.439,15.405,15.405,16.371,11.541],priorScores:[{id:'prior_Conor_Ryan_2025-05-20_Front',weekId:'2025-05-20',dateLabel:'May 20, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[4,7,8,3,5,5,7,6,4],gross:49,gvp:15,nvp:6,diff9:14.439,isPrior:true},{id:'prior_Conor_Ryan_2025-05-27_Front',weekId:'2025-05-27',dateLabel:'May 27, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,4,6,5,4,6,7,6,6],gross:50,gvp:16,nvp:7,diff9:15.405,isPrior:true},{id:'prior_Conor_Ryan_2025-06-03_Front',weekId:'2025-06-03',dateLabel:'Jun 3, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,7,3,8,4,9,6,3],gross:50,gvp:16,nvp:7,diff9:15.405,isPrior:true},{id:'prior_Conor_Ryan_2025-06-10_Back',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[7,7,6,5,5,6,5,7,3],gross:51,gvp:15,nvp:6,diff9:16.371,isPrior:true},{id:'prior_Conor_Ryan_2025-07-29_Back',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[4,6,3,4,6,8,5,5,5],gross:46,gvp:10,nvp:1,diff9:11.541,isPrior:true}]},
   {id:'p23',name:'Blake Spiess',handicapIndex:35.0,scoreDiffs:[18.229,18.229,18.229,18.229,18.229],priorScores:[]},
-  {id:'p24',name:'Sam Mason',handicapIndex:18.7,scoreDiffs:[9.61,9.61,11.541,20.234,7.678,17.336,7.678,12.507,11.541,13.473],priorScores:[{id:'prior_Sam_Mason_Week1_Front',weekId:'2025-05-20',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,4,4,6,5,8,4,3],gross:44,diff9:9.61,isPrior:true},{id:'prior_Sam_Mason_Week2_Front',weekId:'2025-05-27',courseId:'kimberton',tee:'White',nine:'front',holes:[7,6,5,3,5,4,7,4,3],gross:44,diff9:9.61,isPrior:true},{id:'prior_Sam_Mason_Week3_Front',weekId:'2025-06-03',courseId:'kimberton',tee:'White',nine:'front',holes:[5,8,5,4,6,4,6,5,3],gross:46,diff9:11.541,isPrior:true},{id:'prior_Sam_Mason_Week4_Back',weekId:'2025-06-10',courseId:'kimberton',tee:'White',nine:'back',holes:[7,8,6,6,4,6,4,8,6],gross:55,diff9:20.234,isPrior:true},{id:'prior_Sam_Mason_Week7_Front',weekId:'2025-07-15',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,5,4,4,4,6,5,4],gross:42,diff9:7.678,isPrior:true},{id:'prior_Sam_Mason_Week9_Back',weekId:'2025-07-29',courseId:'kimberton',tee:'White',nine:'back',holes:[5,8,5,4,5,4,5,10,6],gross:52,diff9:17.336,isPrior:true},{id:'prior_Sam_Mason_Week14_Front',weekId:'2025-09-02',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,5,3,5,4,6,5,4],gross:42,diff9:7.678,isPrior:true},{id:'prior_Sam_Mason_Week15_Front',weekId:'2025-09-09',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,6,5,5,4,6,5,4],gross:47,diff9:12.507,isPrior:true},{id:'prior_Sam_Mason_Week16_Front',weekId:'2025-09-16',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,5,4,6,5,6,5,4],gross:46,diff9:11.541,isPrior:true},{id:'prior_Sam_Mason_Week17_Front',weekId:'2025-09-23',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,6,5,6,4,6,5,4],gross:48,diff9:13.473,isPrior:true}]},
+  {id:'p24',name:'Sam Mason',handicapIndex:18.7,scoreDiffs:[9.61,9.61,11.541,20.234,7.678,17.336,7.678,12.507,11.541,13.473],priorScores:[{id:'prior_Sam_Mason_2025-05-20_Front',weekId:'2025-05-20',dateLabel:'May 20, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,4,4,6,5,8,4,3],gross:44,gvp:10,nvp:-2,diff9:9.61,isPrior:true},{id:'prior_Sam_Mason_2025-05-27_Front',weekId:'2025-05-27',dateLabel:'May 27, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[7,6,5,3,5,4,7,4,3],gross:44,gvp:10,nvp:-2,diff9:9.61,isPrior:true},{id:'prior_Sam_Mason_2025-06-03_Front',weekId:'2025-06-03',dateLabel:'Jun 3, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,8,5,4,6,4,6,5,3],gross:46,gvp:12,nvp:1,diff9:11.541,isPrior:true},{id:'prior_Sam_Mason_2025-06-10_Back',weekId:'2025-06-10',dateLabel:'Jun 10, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[7,8,6,6,4,6,4,8,6],gross:55,gvp:19,nvp:8,diff9:20.234,isPrior:true},{id:'prior_Sam_Mason_2025-07-15_Front',weekId:'2025-07-15',dateLabel:'Jul 15, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,5,4,4,4,6,5,4],gross:42,gvp:8,nvp:-3,diff9:7.678,isPrior:true},{id:'prior_Sam_Mason_2025-07-29_Back',weekId:'2025-07-29',dateLabel:'Jul 29, 2025',courseId:'kimberton',tee:'White',nine:'back',holes:[5,8,5,4,5,4,5,10,6],gross:52,gvp:16,nvp:6,diff9:17.336,isPrior:true},{id:'prior_Sam_Mason_2025-09-02_Front',weekId:'2025-09-02',dateLabel:'Sep 2, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[5,5,5,3,5,4,6,5,4],gross:42,gvp:8,nvp:-2,diff9:7.678,isPrior:true},{id:'prior_Sam_Mason_2025-09-09_Front',weekId:'2025-09-09',dateLabel:'Sep 9, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,6,5,5,4,6,5,4],gross:47,gvp:13,nvp:3,diff9:12.507,isPrior:true},{id:'prior_Sam_Mason_2025-09-16_Front',weekId:'2025-09-16',dateLabel:'Sep 16, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,5,5,4,6,5,6,5,4],gross:46,gvp:12,nvp:2,diff9:11.541,isPrior:true},{id:'prior_Sam_Mason_2025-09-23_Front',weekId:'2025-09-23',dateLabel:'Sep 23, 2025',courseId:'kimberton',tee:'White',nine:'front',holes:[6,6,6,5,6,4,6,5,4],gross:48,gvp:14,nvp:4,diff9:13.473,isPrior:true}]},
   {id:'p25',name:"Eion D'Anjou",handicapIndex:13.4,scoreDiffs:[6.979,6.979,6.979,6.979,6.979],priorScores:[]},
   {id:'p26',name:'Malcolm Godshall',handicapIndex:35.0,scoreDiffs:[18.229,18.229,18.229,18.229,18.229],priorScores:[]},
   {id:'p27',name:'Chris Maida',handicapIndex:10.3,scoreDiffs:[5.365,5.365,5.365,5.365,5.365],priorScores:[]},
@@ -1330,88 +1330,105 @@ function App(){
   const myView=curPlayer&&(()=>{
   const player=state.players.find(p=>p.id===curPlayer.id);
   if(!player)return null;
-
   const priorScores=(player.priorScores||[]).slice().sort((a,b)=>b.weekId.localeCompare(a.weekId));
   const currentScores=state.scores.filter(s=>s.playerId===curPlayer.id).slice().sort((a,b)=>b.weekId.localeCompare(a.weekId));
   const standingRow=standings.find(p=>p.id===curPlayer.id);
-
-  // ── HI timeline: replay scoreDiffs window chronologically ──────────────────
-  // scoreDiffs = [phantoms..., prior_real..., current...] oldest first
-  // We show a data point for each NON-phantom round (prior + current)
-  const nPhantom=Math.max(0,(player.scoreDiffs||[]).length - priorScores.length - currentScores.length);
-  const allDiffsChron=[...(player.scoreDiffs||[])]; // oldest first
-
-  // Build timeline points — one per real round
-  const hiTimeline=[];
-  // Prior season points
-  const priorChron=[...priorScores].sort((a,b)=>a.weekId.localeCompare(b.weekId));
-  priorChron.forEach((s,i)=>{
-    const windowEnd=nPhantom+i+1;
-    const window=allDiffsChron.slice(Math.max(0,windowEnd-10),windowEnd);
-    const best5=[...window].sort((a,b)=>a-b).slice(0,5);
-    const hi=best5.length?Math.round(best5.reduce((s,v)=>s+v,0)/best5.length*0.96*2*10)/10:player.handicapIndex;
-    hiTimeline.push({label:s.week+' (2025)',hi,isPrior:true});
-  });
-  // Current season points
-  const curChron=[...currentScores].sort((a,b)=>a.weekId.localeCompare(b.weekId));
-  curChron.forEach((s,i)=>{
-    const windowEnd=allDiffsChron.length-curChron.length+i+1;
-    const window=allDiffsChron.slice(Math.max(0,windowEnd-10),windowEnd);
-    const best5=[...window].sort((a,b)=>a-b).slice(0,5);
-    const hi=best5.length?Math.round(best5.reduce((s,v)=>s+v,0)/best5.length*0.96*2*10)/10:player.handicapIndex;
-    hiTimeline.push({label:'Wk '+wkRange(s.weekId),hi,isPrior:false});
-  });
-
-  // Add opening point (starting HI before any real rounds)
-  const allPoints=[{label:'Start',hi:player.handicapIndex,isPrior:true},...hiTimeline];
   const currentHI=player.handicapIndex;
+  const priorChron=[...priorScores].sort((a,b)=>a.weekId.localeCompare(b.weekId));
+  const curChron=[...currentScores].sort((a,b)=>a.weekId.localeCompare(b.weekId));
+  const realRoundsChron=[...priorChron,...curChron];
+  const allDiffs=player.scoreDiffs||[];
+  const nPhantom=Math.max(0,allDiffs.length-realRoundsChron.length);
 
-  // ── Sparkline SVG ───────────────────────────────────────────────────────────
-  const hiVals=allPoints.map(p=>p.hi);
-  const minHI=Math.max(0,Math.min(...hiVals)-2);
-  const maxHI=Math.max(...hiVals)+2;
-  const range=maxHI-minHI||1;
-  const W=300,H=70;
-  const ptCoords=allPoints.map((p,i)=>({
-    x:allPoints.length===1?W/2:i*(W-24)/(allPoints.length-1)+12,
-    y:H-((p.hi-minHI)/range)*(H-16)-8,
-    ...p
-  }));
-  const polyPts=ptCoords.map(p=>p.x+','+p.y).join(' ');
+  // Trailing 10 diffs window
+  const trailingDiffs=allDiffs.slice(-10);
+  const phantomInWindow=Math.max(0,nPhantom-(allDiffs.length-trailingDiffs.length));
 
-  // ── Which diffs are in best-5 window (for highlighting) ─────────────────────
-  const currentWindow=(player.scoreDiffs||[]).slice(-10);
-  const sortedWindow=[...currentWindow].sort((a,b)=>a-b);
-  const best5vals=sortedWindow.slice(0,5);
-  // Match prior scores to their diff values
-  const priorDiffs=priorChron.map(s=>s.diff9);
-  const curDiffs=curChron.map(s=>{
-    const tee=getEffectiveTee(s.courseId,s.tee,to);
-    if(!tee)return null;
-    const r9=s.nine==='front'?tee.r9f:tee.r9b;
-    const sl9=s.nine==='front'?tee.sl9f:tee.sl9b;
-    return parseFloat(((getScoreData(s,to,state.players)?.gross||0)-r9)*(113/sl9).toFixed(3));
+  // Build window items with diff value and date for tiebreaking
+  const windowItems=trailingDiffs.map((d,i)=>{
+    const realIdx=i-phantomInWindow;
+    const round=realIdx>=0&&realIdx<realRoundsChron.length?realRoundsChron[realIdx]:null;
+    return{diff:d,date:round?round.weekId:'0000-00-00',idxInWindow:i,isPhantom:!round};
   });
 
-  function isInBest5(diff9){
-    if(diff9==null)return false;
-    // Check if this diff is in the trailing 10 and in best 5
-    const inWindow=currentWindow.some(d=>Math.abs(d-diff9)<0.01);
-    if(!inWindow)return false;
-    // Check if it's in the best 5 of the window
-    return best5vals.some(d=>Math.abs(d-diff9)<0.01);
+  // Sort asc by diff, desc by date (most recent tiebreaker) - take first 5
+  const best5Indices=new Set(
+    [...windowItems]
+      .sort((a,b)=>a.diff!==b.diff?a.diff-b.diff:b.date.localeCompare(a.date))
+      .slice(0,5)
+      .map(x=>x.idxInWindow)
+  );
+
+  function getRoundWindowIdx(roundChronIdx){
+    return phantomInWindow+roundChronIdx;
+  }
+  function isRoundInBest5(roundChronIdx){
+    const wi=getRoundWindowIdx(roundChronIdx);
+    return wi>=0&&wi<trailingDiffs.length&&best5Indices.has(wi);
+  }
+  function isRoundInWindow(roundChronIdx){
+    const wi=getRoundWindowIdx(roundChronIdx);
+    return wi>=0&&wi<trailingDiffs.length;
   }
 
-  // ── Score row renderer ──────────────────────────────────────────────────────
-  function ScoreRow(s,isPriorRow){
-    const d=isPriorRow?null:getScoreData(s,to,state.players);
+  // HI timeline - one point per real round, replay rolling window
+  const hiTimeline=realRoundsChron.map((_,i)=>{
+    const windowEnd=nPhantom+i+1;
+    const window=allDiffs.slice(Math.max(0,windowEnd-10),windowEnd);
+    const best5=[...window].sort((a,b)=>a-b).slice(0,5);
+    const hi=best5.length?Math.round(best5.reduce((s,v)=>s+v,0)/best5.length*0.96*2*10)/10:currentHI;
+    const isPrior=i<priorChron.length;
+    const round=realRoundsChron[i];
+    return{hi,isPrior,label:isPrior?(round.dateLabel||round.weekId):wkRange(round.weekId)};
+  });
+
+  // Sparkline: opening HI dot + one per real round
+  const sparkPoints=hiTimeline.length>=1
+    ?[{hi:currentHI,isPrior:true,isStart:true},...hiTimeline]
+    :[];
+
+  let sparklineSVG=null;
+  if(sparkPoints.length>=2){
+    const W=300,H=72;
+    const hiVals=sparkPoints.map(p=>p.hi);
+    const minHI=Math.max(0,Math.min(...hiVals)-3);
+    const maxHI=Math.max(...hiVals)+3;
+    const range=maxHI-minHI||1;
+    const coords=sparkPoints.map((p,i)=>({
+      x:i*(W-24)/(sparkPoints.length-1)+12,
+      y:H-22-((p.hi-minHI)/range)*(H-30),
+      ...p
+    }));
+    const polyPts=coords.map(p=>p.x+','+p.y).join(' ');
+    sparklineSVG=h('svg',{viewBox:'0 0 '+W+' '+H,style:{width:'100%',height:H,display:'block'},
+      xmlns:'http://www.w3.org/2000/svg',role:'img','aria-label':'Handicap index trend'},
+      h('polyline',{points:polyPts,fill:'none',stroke:'#2d6a4f',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'}),
+      ...coords.map((p,i)=>[
+        h('circle',{key:'c'+i,cx:p.x,cy:p.y,r:p.isStart?3:4,
+          fill:p.isStart?'#5a7a65':'#1a3d2b',stroke:'white',strokeWidth:1.5}),
+        h('text',{key:'t'+i,x:p.x,y:p.y-8,textAnchor:'middle',fontSize:9,
+          fill:p.isStart?'#5a7a65':'#1a3d2b',fontWeight:p.isStart?'normal':'bold'},
+          p.hi.toFixed(1))
+      ]).flat()
+    );
+  }
+
+  // Get score data for current season rounds
+  function getCurScoreData(s){return getScoreData(s,to,state.players);}
+
+  function ScoreRow(s,isPriorRow,chronIdx){
     const c=BASE_COURSES[s.courseId];
-    const diff9=isPriorRow?s.diff9:curDiffs[curChron.findIndex(r=>r.id===s.id)];
-    const hi_after=isPriorRow
-      ?hiTimeline.find(t=>t.label===s.week+' (2025)')?.hi
-      :hiTimeline.find(t=>t.label==='Wk '+wkRange(s.weekId))?.hi;
-    const inBest=isInBest5(diff9);
+    const diff9=s.diff9!=null?s.diff9:null;
+    const inBest=isRoundInBest5(chronIdx);
+    const inWindow=isRoundInWindow(chronIdx);
+    const hiAfterData=isPriorRow?null:hiTimeline[priorChron.length+curChron.findIndex(r=>r.id===s.id)];
+    const hiAfter=hiAfterData?hiAfterData.hi:null;
+    const d=isPriorRow?null:getCurScoreData(s);
+    const gross=isPriorRow?s.gross:(d?d.gross:null);
+    const nvp=d?d.nvp:null;
+    const net=d?d.net:null;
     const closed=isPriorRow||isWeekClosed(s.weekId);
+    const dateStr=isPriorRow?(s.dateLabel||s.weekId):wkLabel(s.weekId);
 
     let myPts=null;
     if(!isPriorRow&&closed){
@@ -1419,39 +1436,50 @@ function App(){
       myPts=wPts.find(w=>w.id===s.id)?.points;
     }
 
-    return h('div',{key:s.id||s.weekId,style:{
-      display:'flex',alignItems:'center',justifyContent:'space-between',
-      padding:'7px 10px',borderBottom:'1px solid var(--br)',
-      background:inBest?'#d8f3dc':'transparent',
-      borderRadius:inBest?6:0,marginBottom:inBest?1:0,
+    return h('div',{key:s.id||s.weekId+chronIdx,style:{
+      display:'flex',alignItems:'flex-start',justifyContent:'space-between',
+      padding:'7px 8px',borderBottom:'1px solid var(--br)',
+      background:inBest?'#d8f3dc':inWindow?'#f0f7f2':'transparent',
+      borderRadius:(inBest||inWindow)?5:0,marginBottom:(inBest||inWindow)?1:0,
     }},
       h('div',{style:{flex:1,minWidth:0}},
         h('div',{style:{display:'flex',alignItems:'center',gap:5,flexWrap:'wrap'}},
-          h('span',{style:{fontWeight:600,fontSize:13,color:'#1a2e1f'}},
-            isPriorRow?s.week+' · 2025':wkLabel(s.weekId)
-          ),
-          
+          h('span',{style:{fontWeight:600,fontSize:13,color:'#1a2e1f'}},dateStr),
           !isPriorRow&&!closed&&h('span',{style:{fontSize:9,background:'#fff3cd',color:'#7a5000',padding:'1px 5px',borderRadius:3}},'Pending'),
-          inBest&&h('span',{style:{fontSize:9,background:'#2d6a4f',color:'white',padding:'1px 5px',borderRadius:3}},'HI ✓')
+          inBest&&h('span',{style:{fontSize:9,background:'#1a3d2b',color:'white',padding:'1px 5px',borderRadius:3,fontWeight:600}},'HI ✓')
         ),
         h('div',{style:{fontSize:11,color:'#5a7a65',marginTop:2}},
-          (c?.name||s.courseId)+' · '+s.tee+' · '+(s.nine==='front'?'Front 9':'Back 9')
+          (c?c.name:s.courseId)+' · '+s.tee+' · '+(s.nine==='front'?'Front 9':'Back 9')
         )
       ),
       h('div',{style:{textAlign:'right',flexShrink:0,marginLeft:8}},
-        h('div',{style:{fontSize:13,color:'#1a2e1f',fontWeight:600}},'G: '+(isPriorRow?s.gross:(d?.gross??'—'))),
-        h('div',{style:{display:'flex',gap:4,justifyContent:'flex-end',marginTop:2,alignItems:'center'}},
-          diff9!=null&&h('span',{style:{fontSize:10,color:'#5a7a65'}},'diff '+diff9.toFixed(1)),
-          !isPriorRow&&hi_after&&h('span',{style:{fontSize:10,color:'#1a3d2b',fontWeight:600}},'→ HI '+hi_after.toFixed(1)),
-          !isPriorRow&&closed&&myPts&&h('span',{className:'chip chip-g',style:{fontSize:10}},myPts+' pts'),
-          !isPriorRow&&!closed&&h('span',{className:'chip chip-n',style:{fontSize:10}},'TBD')
+        gross!=null&&h('div',{style:{fontSize:12,fontWeight:600,color:'#1a2e1f'}},'Gross: '+gross),
+        h('div',{style:{fontSize:11,color:'#5a7a65',marginTop:2}},
+          isPriorRow
+            ?[
+                s.gvp!=null?'Vs Par: '+(s.gvp>=0?'+':'')+s.gvp:'',
+                s.nvp!=null?'Net vs Par: '+(s.nvp>=0?'+':'')+s.nvp:'',
+                diff9!=null?'Diff: '+diff9.toFixed(1):'',
+              ].filter(Boolean).join('  ')
+            :[
+                nvp!=null?'Vs Par: '+(nvp>=0?'+':'')+nvp:'',
+                net!=null?'Net vs Par: '+(net>=0?'+':'')+net:'',
+                diff9!=null?'Diff: '+diff9.toFixed(1):'',
+              ].filter(Boolean).join('  ')
+        ),
+        !isPriorRow&&h('div',{style:{display:'flex',gap:4,justifyContent:'flex-end',marginTop:2}},
+          hiAfter&&h('span',{style:{fontSize:10,color:'#1a3d2b',fontWeight:600}},'→ HI '+hiAfter.toFixed(1)),
+          closed&&myPts&&h('span',{className:'chip chip-g',style:{fontSize:10}},myPts+' pts'),
+          !closed&&h('span',{className:'chip chip-n',style:{fontSize:10}},'TBD')
         )
       )
     );
   }
 
+  const priorChronReversed=[...priorChron].reverse();
+  const curChronReversed=[...curChron].reverse();
+
   return h('div',null,
-    // ── Header ────────────────────────────────────────────────────────────────
     h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16,flexWrap:'wrap',gap:8}},
       h('div',{style:{display:'flex',alignItems:'center',gap:10}},
         h(Av,{name:curPlayer.name,size:40}),
@@ -1462,15 +1490,13 @@ function App(){
       ),
       h(Btn,{v:'g',onClick:()=>setShowScore(true)},'⛳ Submit Score')
     ),
-
-    // ── Stat boxes ────────────────────────────────────────────────────────────
     h('div',{className:'g3',style:{marginBottom:16}},
       h('div',{className:'stat-box'},h('div',{className:'stat-n'},standingRow?standings.findIndex(p=>p.id===curPlayer.id)+1:'—'),h('div',{className:'stat-l'},'Rank')),
       h('div',{className:'stat-box'},h('div',{className:'stat-n'},standingRow?.totalPoints||0),h('div',{className:'stat-l'},'Total Pts')),
       h('div',{className:'stat-box'},h('div',{className:'stat-n'},currentHI.toFixed(1)),h('div',{className:'stat-l'},'Handicap Index'))
     ),
 
-    // ── Handicap History card ─────────────────────────────────────────────────
+    // Handicap History card
     h('div',{className:'card',style:{marginBottom:14}},
       h('div',{className:'card-title'},'📈 Handicap History'),
       h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-end',marginBottom:8}},
@@ -1479,64 +1505,58 @@ function App(){
           h('div',{style:{fontFamily:"'Playfair Display',serif",fontSize:36,color:'var(--g)',fontWeight:700,lineHeight:1}},currentHI.toFixed(1))
         ),
         h('div',{style:{textAlign:'right',fontSize:11,color:'var(--mt)'}},
-          h('div',null,priorScores.length+' prior rounds · '+currentScores.length+' this season'),
-          h('div',null,'Rolling 10-round window, best 5')
+          h('div',null,priorScores.length+' prior · '+currentScores.length+' this season'),
+          h('div',null,'Rolling 10, best 5')
         )
       ),
-      // Sparkline
-      allPoints.length>1&&h('div',{style:{position:'relative'}},
-        h('svg',{viewBox:'0 0 '+W+' '+H,style:{width:'100%',height:H,display:'block'},xmlns:'http://www.w3.org/2000/svg'},
-          // Area fill
-          h('polyline',{points:ptCoords.map(p=>p.x+','+p.y).join(' ')+' '+ptCoords[ptCoords.length-1].x+','+H+' '+ptCoords[0].x+','+H,
-            fill:'rgba(45,106,79,0.08)',stroke:'none'}),
-          // Line
-          h('polyline',{points:polyPts,fill:'none',stroke:'#2d6a4f',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'}),
-          // Dots
-          ...ptCoords.map((p,i)=>h('circle',{key:i,cx:p.x,cy:p.y,r:p.label==='Start'?3:4,
-            fill:p.isPrior?'#5a7a65':'#1a3d2b',stroke:'white',strokeWidth:1.5})),
-          // Start & end labels
-          h('text',{x:ptCoords[0].x,y:H-2,textAnchor:'middle',fontSize:9,fill:'#5a7a65'},'Start'),
-          ptCoords.length>1&&h('text',{x:ptCoords[ptCoords.length-1].x,y:ptCoords[ptCoords.length-1].y-8,
-            textAnchor:'middle',fontSize:9,fill:'#1a3d2b',fontWeight:'bold'},currentHI.toFixed(1))
-        )
-      ),
-      allPoints.length===1&&h('div',{style:{fontSize:12,color:'var(--mt)',fontStyle:'italic',padding:'8px 0'}},
-        'Chart will update as you submit rounds this season.'
-      )
+      sparklineSVG||h('div',{style:{fontSize:12,color:'var(--mt)',fontStyle:'italic',padding:'8px 0'}},
+        'Submit your first round to see your handicap trend.')
     ),
 
-    // ── 2026 Season scores ────────────────────────────────────────────────────
+    // 2026 Season
     h('div',{className:'card',style:{marginBottom:14}},
       h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}},
         h('div',{className:'card-title',style:{marginBottom:0}},'📋 2026 Season'),
-        currentScores.length>0&&h('span',{style:{fontSize:12,color:'var(--mt)'}},currentScores.length+' rounds')
+        h('span',{style:{fontSize:12,color:'var(--mt)'}},currentScores.length+' rounds')
       ),
       currentScores.length===0
-        ?h('div',{className:'nd'},'No rounds yet this season — submit your first score!')
-        :currentScores.map(s=>ScoreRow(s,false))
+        ?h('div',{className:'nd'},'No rounds yet — submit your first score!')
+        :curChronReversed.map((s)=>{
+            const idx=curChron.findIndex(r=>r.id===s.id);
+            return ScoreRow(s,false,priorChron.length+idx);
+          })
     ),
 
-    // ── 2025 Prior season scores ──────────────────────────────────────────────
-    priorScores.length>0&&h('div',{className:'card'},
+    // 2025 Season
+    priorScores.length>0&&h('div',{className:'card',style:{marginBottom:14}},
       h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}},
         h('div',{className:'card-title',style:{marginBottom:0}},'📋 2025 Season'),
-        h('span',{style:{fontSize:12,color:'var(--mt)'}},priorScores.length+' rounds · used to seed starting HI')
+        h('span',{style:{fontSize:12,color:'var(--mt)'}},priorScores.length+' rounds')
       ),
-      priorScores.map(s=>ScoreRow(s,true))
+      priorChronReversed.map((s)=>{
+        const idx=priorChron.findIndex(r=>r.id===s.id);
+        return ScoreRow(s,true,idx);
+      })
     ),
 
-    // ── Legend ────────────────────────────────────────────────────────────────
-    h('div',{style:{
-      fontSize:11,color:'var(--mt)',marginTop:10,padding:'10px 12px',
-      background:'rgba(255,255,255,0.08)',borderRadius:8,lineHeight:1.8
-    }},
-      h('div',{style:{display:'flex',alignItems:'center',gap:6,marginBottom:4}},
-        h('span',{style:{background:'#d8f3dc',borderRadius:4,padding:'1px 6px',fontSize:9,fontWeight:600,color:'#2d6a4f'}},'HI ✓'),
-        h('span',null,'Round is included in the current handicap calculation (best 5 of trailing 10)')
+    // Legend
+    h('div',{style:{fontSize:11,color:'var(--mt)',marginBottom:16,padding:'10px 12px',
+      background:'rgba(255,255,255,0.06)',borderRadius:8,lineHeight:1.8}},
+      h('div',{style:{display:'flex',alignItems:'flex-start',gap:6,marginBottom:4}},
+        h('span',{style:{background:'#1a3d2b',color:'white',padding:'1px 6px',borderRadius:3,fontSize:9,fontWeight:600,flexShrink:0,marginTop:1}},'HI ✓'),
+        h('span',null,'Included in current handicap calculation — lowest 5 diffs of the 10 most recent rounds, most recent used as tiebreaker')
       ),
-      h('div',{style:{display:'flex',alignItems:'center',gap:6}},
-        h('span',{style:{width:14,height:14,background:'#d8f3dc',borderRadius:3,display:'inline-block',flexShrink:0}}),
-        h('span',null,'Row shading indicates the 10 most recent rounds used in the rolling window')
+      h('div',{style:{display:'flex',alignItems:'flex-start',gap:6,marginBottom:4}},
+        h('span',{style:{width:13,height:13,background:'#d8f3dc',borderRadius:3,display:'inline-block',flexShrink:0,marginTop:1}}),
+        h('span',null,'Darker green shading — round is in best 5')
+      ),
+      h('div',{style:{display:'flex',alignItems:'flex-start',gap:6,marginBottom:4}},
+        h('span',{style:{width:13,height:13,background:'#f0f7f2',borderRadius:3,display:'inline-block',border:'1px solid #c8dbc0',flexShrink:0,marginTop:1}}),
+        h('span',null,'Light green shading — round is in the trailing 10-round window but not in best 5')
+      ),
+      h('div',{style:{display:'flex',alignItems:'flex-start',gap:6}},
+        h('span',{style:{fontSize:11,color:'var(--mt)',fontWeight:600,flexShrink:0,marginTop:0}},'Diff:'),
+        h('span',null,'9-hole score differential: how you played relative to the course rating, adjusted for slope. Lower is better. Used to calculate your Handicap Index.')
       )
     )
   );
