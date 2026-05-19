@@ -158,7 +158,7 @@ const DEFAULT_SEASON_WEEKS=[
   '2026-06-30','2026-07-07','2026-07-14','2026-07-21','2026-07-28','2026-08-04',
   '2026-08-11','2026-08-18','2026-08-25','2026-09-01',
 ];
-const SITE_PIN='IMG@VG'; // Change this to your preferred 4-digit PIN
+const SITE_PIN='1234'; // Change this to your preferred 4-digit PIN
 const SITE_PIN_KEY='img_golf_pin_v1'; // localStorage key for remembering auth
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
@@ -505,7 +505,10 @@ function wkRange(w){
   const em=e.toLocaleDateString('en-US',{month:'short',day:'numeric'});
   return sm+' – '+em;
 }
-function calcCH9(hi,sl9,r9val,par9){return Math.round((hi/2)*(sl9/113)+(r9val-par9));}
+function calcCH18(hi,sl18,r18,par18){
+  // Full 18-hole course handicap
+  return Math.round(hi*(sl18/113)+(r18-par18));
+}
 function calcDiff9(gross,r9val,sl9){return(gross-r9val)*(113/sl9);}
 function updateHI(diffs){
   // Rolling window: last 10 rounds, best 5, * 0.96 * 2 for 18-hole HI
@@ -549,11 +552,23 @@ function getEffectiveTee(courseId,teeName,teeOverrides){
   };
 }
 
-function calcHoles(grossHoles,pars,si18,ch9){
+function strokesOnHole(si,ch18){
+  // Wrap-around: first 18 strokes = 1 per hole SI<=18,
+  // next 18 = second stroke on SI<=(ch18-18), etc.
+  let s=0, remaining=ch18;
+  while(remaining>0){
+    const thisPass=Math.min(remaining,18);
+    if(si<=thisPass) s++;
+    remaining-=18;
+  }
+  return s;
+}
+function calcHoles(grossHoles,pars,si18,ch18){
   return grossHoles.map((gross,i)=>{
     const cap=Math.min(gross,pars[i]*2);
-    const net=cap-(si18[i]<=ch9?1:0);
-    return{gross,cap,par:pars[i],net,nvp:net-pars[i]};
+    const s=strokesOnHole(si18[i],ch18);
+    const net=cap-s;
+    return{gross,cap,par:pars[i],net,nvp:net-pars[i],strokes:s};
   });
 }
 function getScoreData(score,teeOverrides,players){
@@ -561,13 +576,13 @@ function getScoreData(score,teeOverrides,players){
   if(!tee)return null;
   const pars=score.nine==='front'?tee.front:tee.back;
   const si18=score.nine==='front'?tee.si18f:tee.si18b;
-  const r9val=score.nine==='front'?tee.r9f:tee.r9b;
-  const sl9=score.nine==='front'?tee.sl9f:tee.sl9b;
   const par9=pars.reduce((s,p)=>s+p,0);
   const player=players.find(p=>p.id===score.playerId);if(!player)return null;
-  const ch9=calcCH9(player.handicapIndex,sl9,r9val,par9);
-  const holes=calcHoles(score.holes,pars,si18,ch9);
-  return{holes,gross:holes.reduce((s,h)=>s+h.cap,0),net:holes.reduce((s,h)=>s+h.net,0),nvp:holes.reduce((s,h)=>s+h.nvp,0),par9,ch9};
+  // Use full 18-hole course handicap, apply strokes on holes played only
+  const par18=tee.front.reduce((s,p)=>s+p,0)+tee.back.reduce((s,p)=>s+p,0);
+  const ch18=calcCH18(player.handicapIndex,tee.sl18,tee.r18,par18);
+  const holes=calcHoles(score.holes,pars,si18,ch18);
+  return{holes,gross:holes.reduce((s,h)=>s+h.cap,0),net:holes.reduce((s,h)=>s+h.net,0),nvp:holes.reduce((s,h)=>s+h.nvp,0),par9,ch9:ch18};
 }
 function getAllWks(scores){return[...new Set(scores.map(s=>s.weekId))].sort();}
 function getWkScores(scores,wid){return scores.filter(s=>s.weekId===wid);}
@@ -878,7 +893,8 @@ function ScoreEntry({state,dispatch,curPlayer,isAdmin=false,onDone}){
   const sl9=tee?(nine==='front'?tee.sl9f:tee.sl9b):117;
   const par9=pars.reduce((s,p)=>s+p,0);
   const alreadySub=state.scores.some(s=>s.playerId===pid&&s.weekId===wkId);
-  const ch9=player&&tee?calcCH9(player.handicapIndex,sl9,r9val,par9):null;
+  const par18=tee?(tee.front.reduce((s,p)=>s+p,0)+tee.back.reduce((s,p)=>s+p,0)):70;
+  const ch9=player&&tee?calcCH18(player.handicapIndex,tee?tee.sl18:117,tee?tee.r18:70,par18):null;
 
   function handleH(i,val){const v=val===''?'':parseInt(val)||'';const n=[...holes];n[i]=v;setHoles(n);}
   const allFilled=holes.every(h=>h!=='');
@@ -948,7 +964,7 @@ function ScoreEntry({state,dispatch,curPlayer,isAdmin=false,onDone}){
         h('div',{style:{display:'flex',justifyContent:'space-between',gap:10}},
           h('div',null,h('div',{className:'ey'},'Course'),h('div',{style:{color:'#c9a84c',fontSize:14,fontFamily:'Playfair Display,serif',fontWeight:700}},course.name)),
           h('div',{style:{textAlign:'center'}},h('div',{className:'ey'},'Tees / Nine'),h('div',{style:{color:'#c9a84c',fontSize:12}},teeN+(tee.gender==='L'?' (L)':'')+'·'+(nine==='front'?'Front 9':'Back 9'))),
-          h('div',{style:{textAlign:'right'}},h('div',{className:'ey'},'Course HCP'),h('div',{style:{fontSize:22,fontFamily:'Playfair Display,serif',fontWeight:700,color:'#c9a84c'}},ch9??'—'))
+          h('div',{style:{textAlign:'right'}},h('div',{className:'ey'},'Course HCP (18-hole)'),h('div',{style:{fontSize:22,fontFamily:'Playfair Display,serif',fontWeight:700,color:'#c9a84c'}},ch9??'—'))
         )
       ),
       h('p',{style:{fontSize:11,color:'#5a7a65',marginBottom:8,fontStyle:'italic'}},'Scores over double par shown in red — cap applied. ✓ = you get a stroke here.'),
