@@ -158,7 +158,7 @@ const DEFAULT_SEASON_WEEKS=[
   '2026-06-30','2026-07-07','2026-07-14','2026-07-21','2026-07-28','2026-08-04',
   '2026-08-11','2026-08-18','2026-08-25','2026-09-01',
 ];
-const SITE_PIN='IMG@VG'; // Change this to your preferred 4-digit PIN
+const SITE_PIN='1234'; // Change this to your preferred 4-digit PIN
 const SITE_PIN_KEY='img_golf_pin_v1'; // localStorage key for remembering auth
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
@@ -648,13 +648,15 @@ function calcDiff9(gross,r9val,sl9){return(gross-r9val)*(113/sl9);}
 function updateHI(diffs){
   // Rolling window: last 10 rounds, best 5, * 0.96 * 2 for 18-hole HI
   if(!diffs||!diffs.length)return null;
-  const window=[...diffs].slice(-10); // last 10
+  const window=[...diffs].slice(-10).filter(d=>d!=null&&!isNaN(d));
+  if(!window.length)return null;
   const sorted=[...window].sort((a,b)=>a-b);
   const best5=sorted.slice(0,Math.min(5,sorted.length));
   return Math.round(best5.reduce((s,v)=>s+v,0)/best5.length*0.96*2*10)/10;
 }
 function appendDiff(existingDiffs, newDiff){
-  // Add new diff, keep only last 10
+  // Add new diff, keep only last 10; reject NaN
+  if(newDiff==null||isNaN(newDiff))return existingDiffs;
   const updated=[...existingDiffs, newDiff];
   return updated.slice(-10);
 }
@@ -675,11 +677,14 @@ function getEffectiveTee(courseId,teeName,teeOverrides){
   const newAdj=ovr.rAdj!==undefined?ovr.rAdj:base.rAdj;
   const newR18=ovr.r18!==undefined?ovr.r18:base.r18;
   const newSl=ovr.sl18!==undefined?ovr.sl18:base.sl18;
-  const newR9f=parseFloat((newR18/2+newAdj).toFixed(1));
-  const newR9b=parseFloat((newR18/2-newAdj).toFixed(1));
+  // Use USGA per-nine values from base if available, fall back to r18/2±rAdj
+  const newR9f=ovr.r9f!==undefined?ovr.r9f:(base.r9f||parseFloat((newR18/2+(newAdj||0)).toFixed(1)));
+  const newR9b=ovr.r9b!==undefined?ovr.r9b:(base.r9b||parseFloat((newR18/2-(newAdj||0)).toFixed(1)));
+  const newSl9f=ovr.sl9f!==undefined?ovr.sl9f:(base.sl9f||newSl);
+  const newSl9b=ovr.sl9b!==undefined?ovr.sl9b:(base.sl9b||newSl);
   return{
     ...base,r18:newR18,sl18:newSl,rAdj:newAdj,
-    r9f:ovr.r9f||newR9f,sl9f:newSl,r9b:ovr.r9b||newR9b,sl9b:newSl,
+    r9f:newR9f,sl9f:newSl9f,r9b:newR9b,sl9b:newSl9b,
     front:useAltPars&&altParsF?altParsF:mainParsF,
     back:useAltPars&&altParsB?altParsB:mainParsB,
     si18f:useAltSI&&altSIF?altSIF:mainSIF,
@@ -717,7 +722,10 @@ function getScoreData(score,teeOverrides,players){
   const par18=tee.front.reduce((s,p)=>s+p,0)+tee.back.reduce((s,p)=>s+p,0);
   const ch18=calcCH18(player.handicapIndex,tee.sl18,tee.r18,par18);
   const holes=calcHoles(score.holes,pars,si18,ch18);
-  return{holes,gross:holes.reduce((s,h)=>s+h.cap,0),net:holes.reduce((s,h)=>s+h.net,0),nvp:holes.reduce((s,h)=>s+h.nvp,0),par9,ch9:ch18};
+  const gross9=holes.reduce((s,h)=>s+h.cap,0);
+  const net9=holes.reduce((s,h)=>s+h.net,0);
+  const nvp9=holes.reduce((s,h)=>s+h.nvp,0);
+  return{holes,gross:gross9,net:net9,nvp:nvp9,gvp:gross9-par9,par9,ch9:ch18};
 }
 function getAllWks(scores){return[...new Set(scores.map(s=>s.weekId))].sort();}
 function getWkScores(scores,wid){return scores.filter(s=>s.weekId===wid);}
@@ -1038,11 +1046,13 @@ function ScoreEntry({state,dispatch,curPlayer,isAdmin=false,onDone}){
   const tee=teeN?getEffectiveTee(cid,teeN,state.teeOverrides):null;
   const pars=tee?(nine==='front'?tee.front:tee.back):Array(9).fill(4);
   const si18=tee?(nine==='front'?tee.si18f:tee.si18b):Array(9).fill(18);
-  const r9val=tee?(nine==='front'?tee.r9f:tee.r9b):34;
-  const sl9=tee?(nine==='front'?tee.sl9f:tee.sl9b):117;
+  const r9val=tee?(nine==='front'?(tee.r9f||tee.r18/2):(tee.r9b||tee.r18/2)):34;
+  const sl9=tee?(nine==='front'?(tee.sl9f||tee.sl18):(tee.sl9b||tee.sl18)):117;
   const par9=pars.reduce((s,p)=>s+p,0);
   const alreadySub=state.scores.some(s=>s.playerId===pid&&s.weekId===wkId);
   const par18=tee?(tee.front.reduce((s,p)=>s+p,0)+tee.back.reduce((s,p)=>s+p,0)):70;
+  const r18=tee?tee.r18:68;
+  const sl18=tee?tee.sl18:117;
   const ch9=player&&tee?calcCH18(player.handicapIndex,tee?tee.sl18:117,tee?tee.r18:70,par18):null;
 
   function handleH(i,val){const v=val===''?'':parseInt(val)||'';const n=[...holes];n[i]=v;setHoles(n);}
@@ -1060,7 +1070,9 @@ function ScoreEntry({state,dispatch,curPlayer,isAdmin=false,onDone}){
     if(!allFilled)return setAlrt({t:'e',m:'Enter scores for all 9 holes.'});
     if(!isAdmin&&alreadySub)return setAlrt({t:'e',m:'You already submitted a score this week. Weekly results will be posted on Tuesday at 12am.'});
     const hi=dispH.map(h=>h.cap);
-    const newDiff=calcDiff9(capGross,r9val,sl9);
+    const newDiff=(r9val&&sl9&&!isNaN(r9val)&&!isNaN(sl9))
+      ?calcDiff9(capGross,r9val,sl9)
+      :calcDiff9(capGross,r18/2,sl18);
     const pDiffs=appendDiff(player.scoreDiffs||[], newDiff); // rolling 10
     const newHI=updateHI(pDiffs)||player.handicapIndex;
     dispatch({type:'ADD_SCORE',score:{id:'sc_'+Date.now(),playerId:pid,courseId:cid,tee:teeN,nine,holes:hi,weekId:wkId,submittedAt:new Date().toISOString()},pid,scoreDiffs:pDiffs,newHI});
@@ -1646,8 +1658,8 @@ function App(){
                 diff9!=null?'Diff: '+diff9.toFixed(1):'',
               ].filter(Boolean).join('  ·  ')
             :[
-                nvp!=null?'Vs Par: '+(nvp>=0?'+':'')+nvp:'',
-                net!=null?'Net vs Par: '+(net>=0?'+':'')+net:'',
+                d?.gvp!=null?'Vs Par: '+(d.gvp>=0?'+':'')+d.gvp:'',
+                nvp!=null?'Net vs Par: '+(nvp>=0?'+':'')+nvp:'',
                 diff9!=null?'Diff: '+diff9.toFixed(1):'',
               ].filter(Boolean).join('  ·  ')
         ),
