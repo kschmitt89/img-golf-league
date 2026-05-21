@@ -158,7 +158,7 @@ const DEFAULT_SEASON_WEEKS=[
   '2026-06-30','2026-07-07','2026-07-14','2026-07-21','2026-07-28','2026-08-04',
   '2026-08-11','2026-08-18','2026-08-25','2026-09-01',
 ];
-const SITE_PIN='IMG@VG'; // Change this to your preferred 4-digit PIN
+const SITE_PIN='1234'; // Change this to your preferred 4-digit PIN
 const SITE_PIN_KEY='img_golf_pin_v1'; // localStorage key for remembering auth
 
 // ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
@@ -1559,13 +1559,27 @@ function App(){
     return wi>=0&&wi<trailingDiffs.length;
   }
 
+  // Compute current season diffs on the fly from score data
+  // allDiffs only has prior season diffs; we need to extend with current season
+  const curSeasonDiffs=curChron.map(s=>{
+    const tee=getEffectiveTee(s.courseId,s.tee,to);
+    if(!tee)return null;
+    const r9=s.nine==='front'?(tee.r9f||tee.r18/2):(tee.r9b||tee.r18/2);
+    const sl9=s.nine==='front'?(tee.sl9f||tee.sl18):(tee.sl9b||tee.sl18);
+    const d=getScoreData(s,to,state.players);
+    if(!d||!r9||!sl9||isNaN(r9)||isNaN(sl9))return null;
+    const diff=parseFloat(((d.gross-r9)*(113/sl9)).toFixed(3));
+    return isNaN(diff)?null:diff;
+  });
+  // Extended diffs: prior season (allDiffs) + current season
+  const extendedDiffs=[...allDiffs,...curSeasonDiffs.filter(d=>d!=null)];
+
   // HI timeline for sparkline - ONLY 2026 current season rounds
-  // Prior season rounds are not shown in the sparkline
   const hiTimeline=curChron.map((_,i)=>{
-    // Window position: phantoms + all prior + this current round
-    const windowEnd=nPhantom+priorChron.length+i+1;
-    const window=allDiffs.slice(Math.max(0,windowEnd-10),windowEnd);
-    const best5=[...window].sort((a,b)=>a-b).slice(0,5);
+    // Window: use extendedDiffs up to and including this current round
+    const windowEnd=allDiffs.length+i+1;
+    const window=extendedDiffs.slice(Math.max(0,windowEnd-10),windowEnd);
+    const best5=[...window].filter(d=>d!=null&&!isNaN(d)).sort((a,b)=>a-b).slice(0,5);
     const hi=best5.length?Math.round(best5.reduce((s,v)=>s+v,0)/best5.length*0.96*2*10)/10:currentHI;
     const round=curChron[i];
     return{hi,isPrior:false,label:wkRange(round.weekId)};
@@ -1573,8 +1587,8 @@ function App(){
 
   // Sparkline: only show if there is at least 1 current season round
   // Opening dot = HI before any 2026 rounds (from prior season history only)
-  const priorOnlyDiffs=allDiffs.slice(0,nPhantom+priorChron.length);
-  const priorWindow=[...priorOnlyDiffs].slice(-10);
+  // Opening HI = HI from prior season diffs only (allDiffs = prior diffs)
+  const priorWindow=[...allDiffs].slice(-10).filter(d=>d!=null&&!isNaN(d));
   const priorBest5=[...priorWindow].sort((a,b)=>a-b).slice(0,5);
   const openingHI=priorBest5.length
     ?Math.round(priorBest5.reduce((s,v)=>s+v,0)/priorBest5.length*0.96*2*10)/10
@@ -1619,8 +1633,12 @@ function App(){
     let diff9=s.diff9!=null?s.diff9:null;
     if(!isPriorRow&&diff9==null){
       const curIdx=curChron.findIndex(r=>r.id===s.id);
-      const diffIdx=nPhantom+priorChron.length+curIdx;
-      if(diffIdx>=0&&diffIdx<allDiffs.length) diff9=allDiffs[diffIdx];
+      // Try curSeasonDiffs first (computed on the fly with correct per-nine ratings)
+      if(curIdx>=0&&curSeasonDiffs[curIdx]!=null) diff9=curSeasonDiffs[curIdx];
+      else{
+        const diffIdx=nPhantom+priorChron.length+curIdx;
+        if(diffIdx>=0&&diffIdx<allDiffs.length) diff9=allDiffs[diffIdx];
+      }
     }
     const inBest=isRoundInBest5(chronIdx);
     const inWindow=isRoundInWindow(chronIdx);
